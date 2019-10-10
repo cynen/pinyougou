@@ -1,0 +1,7 @@
+/.metadata/
+
+/dubbo-consumer/.settings/*
+/dubbo-service/.settings/*
+/dubbo-service/.*
+/dubbo-consumer/.*
+/RemoteSystemsTempFiles/.project
