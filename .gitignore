@@ -5,3 +5,7 @@
 /dubbo-service/.*
 /dubbo-consumer/.*
 /RemoteSystemsTempFiles/.project
+/pinyougou-parent/.*
+
+/pinyougou-parent/.settings/*
+
