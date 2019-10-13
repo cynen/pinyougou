@@ -5,7 +5,22 @@
 /dubbo-service/.*
 /dubbo-consumer/.*
 /RemoteSystemsTempFiles/.project
-/pinyougou-parent/.*
 
-/pinyougou-parent/.settings/*
+/pinyougou-parent/.*
+/pinyougou-parent/pinyougou-common/.*
+/pinyougou-parent/pinyougou-dao/.*
+/pinyougou-parent/pinyougou-pojo/.*
+
+/pinyougou-parent/pinyougou-sellergoods-interface/.*
+/pinyougou-parent/pinyougou-sellergoods-service/.*
+/pinyougou-parent/pinyougou-manager-web/.*
+
+/pinyougou-parent/pinyougou-shop-web/.*
+
+
+
+
+
+
+
 

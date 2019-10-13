@@ -272,4 +272,13 @@
 	</build>
 	
   
+	<modules>
+		<module>pinyougou-pojo</module>
+		<module>pinyougou-dao</module>
+		<module>pinyougou-common</module>
+		<module>pinyougou-sellergoods-interface</module>
+		<module>pinyougou-sellergoods-service</module>
+		<module>pinyougou-manager-web</module>
+		<module>pinyougou-shop-web</module>
+	</modules>
 </project>
