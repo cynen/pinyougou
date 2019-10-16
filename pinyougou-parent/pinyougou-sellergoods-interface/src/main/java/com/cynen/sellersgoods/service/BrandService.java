@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.cynen.pojo.TbBrand;
 
+import entity.PageResult;
+import entity.Result;
+
 public interface BrandService {
 
 	/**
@@ -11,5 +14,9 @@ public interface BrandService {
 	 * @return
 	 */
 	public List<TbBrand> findAll();
+	
+	public PageResult findPage(int currPage,int pageSize);
+	
+	public void addbrand(TbBrand tbBrand);
 	
 }
