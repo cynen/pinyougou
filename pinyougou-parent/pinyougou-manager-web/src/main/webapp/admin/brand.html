@@ -40,22 +40,27 @@
 			}; 
 			// 公共的加载数据.
 			$scope.reloadList=function(){
-				 $scope.findPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
+				 $scope.search($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
 			}
 			
 			// 分页查询.
 			$scope.findPage=function(currPage,pageSize){
-				$http.get("../brand/findPage.do?currPage="+currPage+"&pageSize="+pageSize).success(function(response){
+				$http.post("../brand/findPage.do?currPage="+currPage+"&pageSize="+pageSize).success(function(response){
 					$scope.list=response.rows;
 					$scope.paginationConf.totalItems=response.total;
-					
 				});
 			}
 			
 			
 			// 增加品牌.
-			$scope.add=function(){
-				$http.post("../brand/add.do",$scope.entity).success(function(response){
+			$scope.save=function(){
+				// 判断是 添加还是修改.通过entity的id属性来判断.
+				// 还有一种办法: 在后端判断是否存在id,进行判断.选择不同的执行方法.
+				var method='add';
+				if($scope.entity.id != null){
+					method='update';
+				}
+				$http.post("../brand/"+method+".do",$scope.entity).success(function(response){
 					if(response.success){
 						// 添加成功,就刷新列表
 						$scope.reloadList();
@@ -63,9 +68,79 @@
 						// 失败就报错...
 						alert(response.msg);
 					}
+				});	
+				/* if($scope.entity.id != null){
+					// update
+					$http.post("../brand/update.do",$scope.entity).success(function(response){
+						if(response.success){
+							// 添加成功,就刷新列表
+							$scope.reloadList();
+						}else{
+							// 失败就报错...
+							alert(response.msg);
+						}
+					});	
+				}else{
+					$http.post("../brand/add.do",$scope.entity).success(function(response){
+						if(response.success){
+							// 添加成功,就刷新列表
+							$scope.reloadList();
+						}else{
+							// 失败就报错...
+							alert(response.msg);
+						}
+					});					
+				} */
+			}
+			
+			// 修改品牌.
+			$scope.edit=function(tbbrand){
+				// 传递当前点中的品牌,将对象传递进来.
+				// 赋给 $scope域中的entity对象.
+				$scope.entity=tbbrand;// 用于反显.
+				
+				// 方法二: 通过点击修改按钮,传递当前的id过来.
+				//$scope.entity.id=tbbrand.id
+				//$scope.entity.name=tbbrand.name; 
+				//$scope.entity.firstChar=tbbrand.firstChar; 			
+			}
+			
+			// 删除事件,对选中的所有的id进行保存的数组.
+			$scope.selectIds=[];
+			// 列表的check框选中事件.
+			$scope.updateSelection=function($event,id){
+				if($event.currentTarget.checked){
+				// 点击是选中
+					$scope.selectIds.push(id)
+				}else{
+				// 点击是不选中.
+					var index=$scope.selectIds.indexOf(id);
+					$scope.selectIds.splice(index,1);
+				}
+			}
+			
+			// 删除选中的ids
+			$scope.delte=function(){
+				$http.get("../brand/delte.do?ids="+$scope.selectIds).success(function(response){
+					if(response.success){
+						// 删除成功,刷新列表
+						$scope.reloadList();
+					}else{
+						// 删除失败就报错...
+						alert(response.msg);
+					}
 				});
 			}
 			
+			
+			$scope.searchEntity={}; // 必须提供一个默认值,否则,POST提交会报错.
+			// 关键字查询.
+			$scope.search=function(currPage,pageSize){
+				$http.post("../brand/search.do?currPage="+currPage+"&pageSize="+pageSize,$scope.searchEntity).success(function(response){
+						$scope.list=response.rows;
+						$scope.paginationConf.totalItems=response.total;	
+				});
+			}
 		})
 	</script>
     
@@ -86,14 +161,14 @@
                                 <div class="form-group form-inline">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建</button>
-                                        <button type="button" class="btn btn-default" title="删除" ><i class="fa fa-trash-o"></i> 删除</button>           
+                                        <button type="button" class="btn btn-default" title="删除" ng-click="delte()"><i class="fa fa-trash-o"></i> 删除</button>           
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-							                                         
+							          关键字查询: <input  placeholder="名称" ng-model="searchEntity.name"/> <input  placeholder="首字母" ng-model="searchEntity.firstChar"/>  <button class="btn btn-default" ng-click="reloadList()"/>查询</button>                       
                                 </div>
                             </div>
                             <!--工具栏/-->
@@ -103,7 +178,7 @@
 			                      <thead>
 			                          <tr>
 			                              <th class="" style="padding-right:0px">
-			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue">
+			                                  <input id="selall" type="checkbox" class="icheckbox_square-blue" >
 			                              </th> 
 										  <th class="sorting_asc">品牌ID</th>
 									      <th class="sorting">品牌名称</th>									      
@@ -114,12 +189,13 @@
 			                      <tbody>
 			                      <!-- tbbrand 变量自定义即可.  list需要在angular中赋值.-->
 			                          <tr ng-repeat="tbbrand in list">
-			                              <td><input  type="checkbox" ></td>			                              
+			                              <td><input  type="checkbox" ng-click="updateSelection($event,tbbrand.id)"></td>			                              
 				                          <td>{{tbbrand.id}}</td>
 									      <td>{{tbbrand.name}}</td>									     
 		                                  <td>{{tbbrand.firstChar}}</td>		                                 
 		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  >修改</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  ng-click="edit(tbbrand)">修改</button>                                           
+		                                 	  <!-- <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"  ng-click="edit(tbbrand.id)">修改</button> -->                                           
 		                                  </td>
 			                          </tr>
 			                      </tbody>
@@ -157,7 +233,7 @@
 			 </table>				
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="add()">保存</button>
+			<button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>

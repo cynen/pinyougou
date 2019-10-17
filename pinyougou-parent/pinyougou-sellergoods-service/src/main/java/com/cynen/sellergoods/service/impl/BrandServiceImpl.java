@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.cynen.mapper.TbBrandMapper;
 import com.cynen.pojo.TbBrand;
+import com.cynen.pojo.TbBrandExample;
+import com.cynen.pojo.TbBrandExample.Criteria;
 import com.cynen.sellersgoods.service.BrandService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -41,19 +43,60 @@ public class BrandServiceImpl implements BrandService{
 	 * 分页查询
 	 */
 	@Override
-	public PageResult findPage(int currPage, int pageSize) {
+	public PageResult findPage(TbBrand tbBrand,int currPage, int pageSize) {
 		PageHelper.startPage(currPage, pageSize);
-		Page<TbBrand> page = (Page<TbBrand>) tbBrandMapper.selectByExample(null);
+		
+		TbBrandExample example = new TbBrandExample();
+		Criteria criteria = example.createCriteria();
+		// 条件分页查询.
+		if (tbBrand != null) {
+			if (tbBrand.getName() != null && tbBrand.getName().length()>0) {
+				criteria.andNameLike("%"+tbBrand.getName()+"%");
+			}
+			if (tbBrand.getFirstChar() !=null && tbBrand.getFirstChar().length() > 0) {
+				criteria.andFirstCharEqualTo(tbBrand.getFirstChar());
+			}
+		}
+
+		Page<TbBrand> page =(Page<TbBrand>) tbBrandMapper.selectByExample(example);				
 		return new PageResult(page.getTotal(), page.getResult());
 	}
 
 
 	/**
-	 * 添加数据
+	 * 添加品牌
 	 */
 	@Override
 	public void addbrand(TbBrand tbBrand) {
 		tbBrandMapper.insert(tbBrand);
+	}
+
+
+	// 更新品牌信息
+	@Override
+	public void updatebrand(TbBrand tbBrand) {
+		tbBrandMapper.updateByPrimaryKey(tbBrand);
+	}
+
+	
+	/**
+	 * 删除品牌,入参: 品牌的id数组.
+	 */
+	@Override
+	public void deleteBrand(Long[] ids) {
+		for (Long id : ids) {
+			tbBrandMapper.deleteByPrimaryKey(id);
+		}
+	}
+
+	/**
+	 * 分页查询.
+	 */
+	@Override
+	public PageResult findPage(int currPage, int pageSize) {
+		PageHelper.startPage(currPage, pageSize);
+		Page<TbBrand> page = (Page<TbBrand>) tbBrandMapper.selectByExample(null);
+		return new PageResult(page.getTotal(), page.getResult());
 	}
 
 }
