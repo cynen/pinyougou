@@ -21,7 +21,7 @@ app.controller('brandController',function($scope,$controller,brandService){
 			$scope.list=response.rows;
 			$scope.paginationConf.totalItems=response.total;
 		}); */
-		brandService.findPage().success(function(response){
+		brandService.findPage(currPage,pageSize).success(function(response){
 			$scope.list=response.rows;
 			$scope.paginationConf.totalItems=response.total;
 		});
