@@ -99,4 +99,14 @@ public class BrandServiceImpl implements BrandService{
 		return new PageResult(page.getTotal(), page.getResult());
 	}
 
+
+	/**
+	 * 根据主键查询一个
+	 */
+	@Override
+	public TbBrand findOne(Long id) {
+		// TODO Auto-generated method stub
+		return tbBrandMapper.selectByPrimaryKey(id);
+	}
+
 }

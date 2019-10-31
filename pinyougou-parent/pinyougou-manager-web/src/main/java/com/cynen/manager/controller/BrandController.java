@@ -84,4 +84,12 @@ public class BrandController {
 	public PageResult search(@RequestBody TbBrand tbBrand,int currPage,int pageSize) {
 		return brandService.findPage(tbBrand, currPage, pageSize);
 	}
+	
+	/**
+	 * 查询单个
+	 */
+	@RequestMapping("/findOne")
+	public TbBrand findOne(Long id) {
+		return brandService.findOne(id);
+	}
 }

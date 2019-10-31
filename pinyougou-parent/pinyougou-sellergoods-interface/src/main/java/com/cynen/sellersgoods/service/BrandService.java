@@ -27,4 +27,7 @@ public interface BrandService {
 	
 	// 条件分页查询
 	public PageResult findPage(TbBrand tbBrand,int currPage,int pageSize);
+	
+	// 查询一个
+	public TbBrand findOne(Long id);
 }
