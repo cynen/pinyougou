@@ -28,4 +28,21 @@ app.controller('baseController',function($scope){
 			$scope.selectIds.splice(index,1);
 		}
 	}
+	
+	
+	// 抽取一个公共的方法.
+	// 提取json字符串数据中某个属性，返回拼接字符串 逗号分隔
+	$scope.jsonToString=function(jsonString,key){
+		var json = JSON.parse(jsonString);
+		var result = "";
+		for(var i=0;i < json.length;i++){
+			// 从第二个数据开始,添加,隔开.
+			if(i > 0){
+				result+=",";
+			}
+			result+=json[i][key];
+		}
+		return result;
+	}
+	
 })

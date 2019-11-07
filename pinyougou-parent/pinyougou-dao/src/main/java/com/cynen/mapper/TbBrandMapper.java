@@ -3,6 +3,8 @@ package com.cynen.mapper;
 import com.cynen.pojo.TbBrand;
 import com.cynen.pojo.TbBrandExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TbBrandMapper {
@@ -27,4 +29,6 @@ public interface TbBrandMapper {
     int updateByPrimaryKeySelective(TbBrand record);
 
     int updateByPrimaryKey(TbBrand record);
+    
+    List<Map> selectOptionList();
 }

@@ -1,6 +1,7 @@
 package com.cynen.manager.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,5 +92,12 @@ public class BrandController {
 	@RequestMapping("/findOne")
 	public TbBrand findOne(Long id) {
 		return brandService.findOne(id);
+	}
+	
+	
+	// 查询品牌列表.
+	@RequestMapping("/selectOptionList")
+	public List<Map> selectOptionList(){
+		return brandService.selectOptionList();
 	}
 }

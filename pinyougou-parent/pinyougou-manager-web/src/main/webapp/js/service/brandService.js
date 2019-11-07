@@ -26,4 +26,8 @@
 		this.findOne=function(id){
 			return $http.get("../brand/findOne.do?id="+id);
 		}
+		
+		this.selectOptionList=function(){
+			return $http.get("../brand/selectOptionList.do");
+		}
 	})

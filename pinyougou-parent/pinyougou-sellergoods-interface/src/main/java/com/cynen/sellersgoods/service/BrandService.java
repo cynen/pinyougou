@@ -1,6 +1,7 @@
 package com.cynen.sellersgoods.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cynen.pojo.TbBrand;
 
@@ -30,4 +31,7 @@ public interface BrandService {
 	
 	// 查询一个
 	public TbBrand findOne(Long id);
+	
+	// 查询所有品牌列表,select2使用.
+	List<Map> selectOptionList();
 }

@@ -1,6 +1,7 @@
 package com.cynen.sellergoods.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -107,6 +108,13 @@ public class BrandServiceImpl implements BrandService{
 	public TbBrand findOne(Long id) {
 		// TODO Auto-generated method stub
 		return tbBrandMapper.selectByPrimaryKey(id);
+	}
+
+
+	// 查询所有的品牌列表.
+	@Override
+	public List<Map> selectOptionList() {
+		return tbBrandMapper.selectOptionList();
 	}
 
 }

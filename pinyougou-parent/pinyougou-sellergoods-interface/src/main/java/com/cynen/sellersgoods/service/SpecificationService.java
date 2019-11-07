@@ -1,5 +1,6 @@
 package com.cynen.sellersgoods.service;
 import java.util.List;
+import java.util.Map;
 
 import com.cynen.dto.Specification;
 import com.cynen.pojo.TbSpecification;
@@ -60,4 +61,6 @@ public interface SpecificationService {
 	 */
 	public PageResult findPage(TbSpecification specification, int pageNum,int pageSize);
 	
+	// 查询所有规格列表,select2使用.
+	List<Map> selectOptionList();
 }
