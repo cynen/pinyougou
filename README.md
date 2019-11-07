@@ -17,3 +17,12 @@ pinyougou :
 整个系统,分为web端,服务端以及对应的底层数据支撑.
 
 服务端注册到dubbox的注册中心,供给各个web端应用进行调用.
+
+
+# 最终系统架构搭建目标:
+
+![image](https://raw.githubusercontent.com/wiki/cynen/pinyougou/最终目标1.png)
+
+// 服务太多了,分开展示:
+
+![image](https://raw.githubusercontent.com/wiki/cynen/pinyougou/最终目标2.png)
