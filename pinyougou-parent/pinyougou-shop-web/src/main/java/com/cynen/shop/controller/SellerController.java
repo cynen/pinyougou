@@ -1,4 +1,5 @@
 package com.cynen.shop.controller;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,6 +50,10 @@ public class SellerController {
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbSeller seller){
 		try {
+			System.out.println("发送申请入驻请求....");
+			seller.setStatus("0");// 状态值：  0：未审核   1：已审核   2：审核未通过   3：关闭
+			seller.setCreateTime(new Date()); // 申请日期.
+			
 			sellerService.add(seller);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
