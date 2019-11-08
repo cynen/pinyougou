@@ -22,6 +22,10 @@
 		<headers>
 			<frame-options policy="SAMEORIGIN"/>
 		</headers>
+		<!-- 
+			logout-url="" 退出的url    
+			logout-success-url 退出成功后,跳转的页面.
+		-->
 		<logout logout-url="" logout-success-url="/login.html"/>
 	</http>
 

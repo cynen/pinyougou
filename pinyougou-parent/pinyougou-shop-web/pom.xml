@@ -76,8 +76,13 @@
 		<artifactId>servlet-api</artifactId>		
 		<scope>provided</scope>
 	</dependency>
-  
 
+
+	<dependency>
+		<groupId>com.cynen</groupId>
+		<artifactId>pinyougou-sellergoods-interface</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
   </dependencies>
   
   
