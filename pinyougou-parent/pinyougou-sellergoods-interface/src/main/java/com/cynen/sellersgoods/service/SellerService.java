@@ -8,6 +8,7 @@ import entity.PageResult;
  * @author Administrator
  *
  */
+import entity.Result;
 public interface SellerService {
 
 	/**
@@ -57,5 +58,9 @@ public interface SellerService {
 	 * @return
 	 */
 	public PageResult findPage(TbSeller seller, int pageNum,int pageSize);
+	
+	// 更新商家状态
+	public void updateStatus(String sellerId,String status);
+	
 	
 }
