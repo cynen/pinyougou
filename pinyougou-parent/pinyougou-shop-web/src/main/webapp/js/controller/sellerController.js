@@ -1,5 +1,5 @@
  //控制层 
-app.controller('sellerController' ,function($scope,$controller,sellerService){	
+app.controller('sellerController' ,function($scope,$controller,sellerService,loginService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -104,4 +104,20 @@ app.controller('sellerController' ,function($scope,$controller,sellerService){
 			}
 		});
 	}
+	
+	//获取登录名.
+	$scope.getLoginName=function(){
+		loginService.loginName().success(function(response){
+			$scope.loginName=response.loginName;
+			$scope.loginDate=response.loginDate;
+		});	
+	}
+	// 初始化商家
+	$scope.sellerinit=function(){
+		// 首先获取登录用户,在通过登录用户的id去查询详细信息.
+		loginService.loginName().success(function(response){
+			$scope.findOne(response.loginName);
+		});	
+	}
+	
 });	
