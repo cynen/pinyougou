@@ -1,5 +1,5 @@
  //控制层 
-app.controller('sellerController' ,function($scope,$controller   ,sellerService){	
+app.controller('sellerController' ,function($scope,$controller,sellerService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -91,4 +91,17 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 		);
 	}
     
+	
+	$scope.updatepwd=function(){
+		if($scope.entity.pwd1 != $scope.entity.pwd2){
+			alert("2次密码不一致!");
+		}
+		sellerService.updatePwd($scope.entity.oldPwd,$scope.entity.pwd1).success(function(response){
+			if(response.success){
+				location.href="index.html";
+			}else{
+				alert("修改密码失败!");
+			}
+		});
+	}
 });	

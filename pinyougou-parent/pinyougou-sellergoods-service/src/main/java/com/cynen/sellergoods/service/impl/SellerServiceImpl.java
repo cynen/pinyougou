@@ -1,4 +1,5 @@
 package com.cynen.sellergoods.service.impl;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -46,6 +47,10 @@ public class SellerServiceImpl implements SellerService {
 	 */
 	@Override
 	public void add(TbSeller seller) {
+		System.out.println("新增商家入驻申请....");
+		seller.setStatus("0");// 状态值：  0：未审核   1：已审核   2：审核未通过   3：关闭
+		seller.setCreateTime(new Date()); // 申请日期.
+		
 		sellerMapper.insert(seller);		
 	}
 
@@ -163,9 +168,10 @@ public class SellerServiceImpl implements SellerService {
 		// update商家状态.
 		@Override
 		public void updateStatus(String sellerId, String status) {
-				TbSeller tbSeller = sellerMapper.selectByPrimaryKey(sellerId);
-				tbSeller.setStatus(status);
-				sellerMapper.updateByPrimaryKey(tbSeller);
+			TbSeller tbSeller = sellerMapper.selectByPrimaryKey(sellerId);
+			tbSeller.setStatus(status);
+			sellerMapper.updateByPrimaryKey(tbSeller);
 		}
 	
+		
 }

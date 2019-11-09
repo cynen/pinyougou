@@ -16,10 +16,20 @@
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
    
-    
+    <!-- 引入angulaJS -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+
+	<!-- 模块化开始,使用的所有js需要加载传进来. -->
+    <script src="../js/base.js"></script>
+    <script src="../js/service/sellerService.js"></script>
+    <script src="../js/controller/baseController.js"></script>
+    <script src="../js/controller/sellerController.js"></script>  
+     
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" >
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="sellerController" ng-init="findOne(loginName)">
 
 
 
@@ -49,7 +59,7 @@
 
                                     <div class="col-md-2 title">公司名称</div>
                                     <div class="col-md-10 data">
-                                        <input type="text" class="form-control"   placeholder="公司名称" value="">
+                                        <input type="text" class="form-control"  ng-model="entity.name" placeholder="公司名称" value="">
                                     </div>
 									
 									<div class="col-md-2 title">公司手机</div>
@@ -129,9 +139,6 @@
                                     
                                 </div>
                             </div>
-                            
-                            
-                           
                             
                         </div>
                         <!--tab内容/-->

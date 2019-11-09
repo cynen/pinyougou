@@ -29,4 +29,8 @@ app.service('sellerService',function($http){
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../seller/search.do?page='+page+"&rows="+rows, searchEntity);
 	}    	
+	//搜索
+	this.updatePwd=function(oldpwd,pwd){
+		return $http.post('../seller/updatepwd.do?oldpwd='+oldpwd+"&pwd="+pwd);
+	}    	
 });

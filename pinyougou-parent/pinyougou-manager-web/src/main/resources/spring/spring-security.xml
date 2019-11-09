@@ -16,7 +16,8 @@
 	
 	<!-- 页面拦截规则 -->
 	<http use-expressions="false">
-		<intercept-url pattern="/*" access="ROLE_ADMIN" />
+		<!-- /* 只拦截第一层url   /**拦截所有url -->
+		<intercept-url pattern="/**" access="ROLE_ADMIN" />
 		<form-login login-page="/login.html"  default-target-url="/admin/index.html" authentication-failure-url="/login.html" always-use-default-target="true"/>	
 		<csrf disabled="true"/>
 		<headers>

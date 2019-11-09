@@ -2,6 +2,10 @@ package com.cynen.shop.controller;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,11 +53,11 @@ public class SellerController {
 	 */
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbSeller seller){
+		// 对密码进行Bcrypt加密.
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String password = encoder.encode(seller.getPassword());
+		seller.setPassword(password);
 		try {
-			System.out.println("发送申请入驻请求....");
-			seller.setStatus("0");// 状态值：  0：未审核   1：已审核   2：审核未通过   3：关闭
-			seller.setCreateTime(new Date()); // 申请日期.
-			
 			sellerService.add(seller);
 			return new Result(true, "增加成功");
 		} catch (Exception e) {
@@ -114,6 +118,39 @@ public class SellerController {
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbSeller seller, int page, int rows  ){
 		return sellerService.findPage(seller, page, rows);		
+	}
+	
+	
+	/**
+	 * Bcrypt 加密,好像修改密码不能这么使用....
+	 * 如何判断输入的密码是旧密码?
+	 * @param oldpwd
+	 * @param pwd
+	 * @return
+	 */
+
+	@RequestMapping("/updatepwd")
+	public Result updatepwd(String oldpwd, String pwd){
+		// 获取当前登录用户id
+		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		// 获取原密码
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		TbSeller seller = sellerService.findOne(name);
+		String originpwd = seller.getPassword();
+		if (originpwd.equals(encoder.encode(oldpwd))) {
+			// 原密码正确,更新密码
+			seller.setPassword(encoder.encode(pwd));
+			try {
+				sellerService.update(seller);
+				return new Result(true, "更新成功!");
+			} catch (Exception e) {
+				// TODO: handle exception
+				return new Result(true, "更新失败!" + e.getLocalizedMessage());
+			}
+			
+		}else {
+			return new Result(false, "原密码不正确!");
+		}
 	}
 	
 }
