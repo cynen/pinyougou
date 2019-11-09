@@ -1,5 +1,7 @@
 package com.cynen.sellersgoods.service;
 import java.util.List;
+import java.util.Map;
+
 import com.cynen.pojo.TbTypeTemplate;
 
 import entity.PageResult;
@@ -58,4 +60,6 @@ public interface TypeTemplateService {
 	 */
 	public PageResult findPage(TbTypeTemplate typeTemplate, int pageNum,int pageSize);
 	
+	// 查询所有模板列表,select2使用.
+	List<Map> selectOptionList();
 }
