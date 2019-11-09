@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<!-- 以下页面不被拦截 -->
+	<http pattern="/*.html" security="none"></http>
+	<http pattern="/css/**" security="none"></http>
+	<http pattern="/img/**" security="none"></http>
+	<http pattern="/js/**" security="none"></http>
+	<http pattern="/plugins/**" security="none"></http>
+	<!-- 放行注册功能. -->
+	<http pattern="/seller/add.do" security="none"></http>
+	
+	
+	<!-- 页面拦截规则 -->
+	<http use-expressions="false">
+		<!-- /* 只拦截第一层url   /**拦截所有url -->
+		<intercept-url pattern="/**" access="ROLE_SELLER" />
+		<form-login login-page="/shoplogin.html"  default-target-url="/admin/index.html" authentication-failure-url="/shoplogin.html" always-use-default-target="true"/>	
+		<csrf disabled="true"/>
+		<headers>
+			<frame-options policy="SAMEORIGIN"/>
+		</headers>
+		<!-- 
+			logout-url="" 退出的url    
+			logout-success-url 退出成功后,跳转的页面.
+		-->
+		<logout logout-success-url="/shoplogin.html"/>
+	</http>
+
+	<!-- 认证管理器 -->
+	<authentication-manager>
+		<authentication-provider user-service-ref="userDetailsService">
+			<password-encoder ref="bcryptEncoder"></password-encoder>
+		</authentication-provider>	
+	</authentication-manager>
+	
+	<!-- 解密 -->
+	<beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
+	<!-- 认证管理实现类 -->
+	<beans:bean id="userDetailsService" class="com.cynen.service.UserDetailsServiceImpl">
+		<!-- 采取的xml注入方式,对应的对象中的属性,必须提供set方法.  ref是引用当前配置文件中的其他bean -->
+		<beans:property name="sellerService" ref="sellerService"></beans:property>
+	</beans:bean>
+	
+	<!-- 引用dubbo 服务 -->
+	<dubbo:application name="pinyougou-shop-web" />
+	<dubbo:registry address="zookeeper://47.107.177.108:2181"/>
+	<!-- 没有使用dubbo的扫描自动注入,而是直接通过dubbo注册中心的接口,查找指定的实现类. -->
+	<dubbo:reference id="sellerService"  interface="com.cynen.sellersgoods.service.SellerService" >
+	</dubbo:reference>
+
+	
+</beans:beans>
+	

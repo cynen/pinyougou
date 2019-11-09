@@ -24,7 +24,7 @@
 	</mvc:annotation-driven>
 
 	<!-- 引用dubbo 服务 -->
-	<dubbo:application name="pinyougou-sellergoods-service" />
+	<dubbo:application name="pinyougou-manager-web" />
 		<dubbo:registry address="zookeeper://47.107.177.108:2181"/>
 	<dubbo:annotation package="com.cynen.manager.controller" /> 
 

@@ -24,8 +24,9 @@
 	</mvc:annotation-driven>
 
 	<!-- 引用dubbo 服务 -->
-	<dubbo:application name="pinyougou-sellergoods-service" />
+	<dubbo:application name="pinyougou-shop-web" />
 		<dubbo:registry address="zookeeper://${zookeeper.address}"/>
+		<!-- 配置dubbo的包扫描,发现有reference注解,自动注入. -->
 	<dubbo:annotation package="com.cynen.shop.controller" />   	
 
 </beans>
