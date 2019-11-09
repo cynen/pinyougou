@@ -1,5 +1,6 @@
 package com.cynen.manager.controller;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -110,5 +111,11 @@ public class TypeTemplateController {
 	public PageResult search(@RequestBody TbTypeTemplate typeTemplate, int page, int rows  ){
 		return typeTemplateService.findPage(typeTemplate, page, rows);		
 	}
+
+	@RequestMapping("/findTypeList")
+	public List<Map> findTypeList(){
+		return typeTemplateService.selectOptionList();
+	}
+	
 	
 }
