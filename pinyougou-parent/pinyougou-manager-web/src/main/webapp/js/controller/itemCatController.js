@@ -73,8 +73,40 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 			function(response){
 				$scope.list=response.rows;	
 				$scope.paginationConf.totalItems=response.total;//更新总记录数
-			}			
-		);
+			});
 	}
+	
+	$scope.findByParentId=function(parentId){
+		itemCatService.findByParentId(parentId).success(function(response){
+			$scope.list=response;
+		});
+	}
+	
+	// 面包屑导航
+	$scope.grade = 1;
+	$scope.setGrade=function(value){
+		$scope.grade = value;
+	}
+	// 点击对应的层级,返回.
+	// entity   代表1级的面包屑  
+	// entity_1 代表2级的面包屑. 
+	// entity_2 代表3级的面包屑
+	$scope.selectList=function(p_entity){
+		if($scope.grade == 1){
+			$scope.entity_1 =null;
+			$scope.entity_2 =null;
+		}else if($scope.grade == 2){ 
+			//当点击了2级的时候,先将当前的实体赋值给2级的面包屑,用于存储分类名称.
+			// 此时列表实际是展示的是p_entity所在层级的下一级.
+			$scope.entity_1 =p_entity;
+			$scope.entity_2 =null;
+		}else{
+			$scope.entity_2 =p_entity;
+		}
+		$scope.findByParentId(p_entity.id);
+	}
+	
+	
+	
     
 });	
