@@ -22,12 +22,22 @@
 	<script charset="utf-8" src="../plugins/kindeditor/lang/zh_CN.js"></script>
     
     
-      
+    <!-- 引入angulaJS -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+
+	<!-- 模块化开始,使用的所有js需要加载传进来. -->
+    <script src="../js/base.js"></script>
+    <script src="../js/service/goodsService.js"></script>
+    <script src="../js/service/loginService.js"></script>
+    <script src="../js/controller/baseController.js"></script>
+    <script src="../js/controller/goodsController.js"></script>   
     
     
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" >
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodsController" ng-init="entity={}">
 
             <!-- 正文区域 -->
             <section class="content">
@@ -342,7 +352,7 @@
                  	
                    </div>
                   <div class="btn-toolbar list-toolbar">
-				      <button class="btn btn-primary" ><i class="fa fa-save"></i>保存</button>
+				      <button class="btn btn-primary" ng-click="save()"><i class="fa fa-save"></i>保存</button>
 				      <button class="btn btn-default" >返回列表</button>
 				  </div>
 			
@@ -386,7 +396,7 @@
 			
 		</div>
 		<div class="modal-footer">						
-			<button class="btn btn-success"  data-dismiss="modal" aria-hidden="true">保存</button>
+			<button class="btn btn-success"  data-dismiss="modal" aria-hidden="true" >保存</button>
 			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
 		</div>
 	  </div>

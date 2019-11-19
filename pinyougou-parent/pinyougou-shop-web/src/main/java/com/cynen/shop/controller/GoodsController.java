@@ -1,6 +1,7 @@
 package com.cynen.shop.controller;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +49,10 @@ public class GoodsController {
 	 */
 	@RequestMapping("/add")
 	public Result add(@RequestBody TbGoods goods){
+		// 处理一下前台页面数据.
+		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
+		goods.setSellerId(sellerId); // 关联商家.
+		goods.setAuditStatus("1"); // 申请中.
 		try {
 			goodsService.add(goods);
 			return new Result(true, "增加成功");

@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller   ,goodsService){	
+app.controller('goodsController' ,function($scope,$controller   ,goodsService,loginService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -76,5 +76,19 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService){
 			}			
 		);
 	}
+	//获取登录名.
+	$scope.getLoginName=function(){
+		loginService.loginName().success(function(response){
+			$scope.loginName=response.loginName;
+		});	
+	}
     
+	$scope.initSearch=function(){
+		loginService.loginName().success(function(response){
+			// response.loginName;
+			$scope.searchEntity.sellerId = response.loginName;
+			$scope.reloadList();
+		});	
+	}
+	
 });	
