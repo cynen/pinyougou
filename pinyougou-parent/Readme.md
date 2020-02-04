@@ -12,7 +12,11 @@ WAR注意区分SpringBoot中的jar打包方式。
 
 
 
+使用方式:
 
+1.启动对应的service项目
+
+2.启动对应的web项目.
 
 
 

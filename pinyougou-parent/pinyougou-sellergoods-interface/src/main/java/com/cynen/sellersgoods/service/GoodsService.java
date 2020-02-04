@@ -1,5 +1,7 @@
 package com.cynen.sellersgoods.service;
 import java.util.List;
+
+import com.cynen.dto.Goods;
 import com.cynen.pojo.TbGoods;
 
 import entity.PageResult;
@@ -25,9 +27,9 @@ public interface GoodsService {
 	
 	
 	/**
-	 * 增加
+	 * 增加 组合实体类
 	*/
-	public void add(TbGoods goods);
+	public void add(Goods goods);
 	
 	
 	/**

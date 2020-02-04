@@ -38,6 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		// SecurityContextHolder.getContext().getAuthentication();
 		// 设定权限
 		List<GrantedAuthority> grantAuths = new ArrayList<GrantedAuthority>();
+		// 必须在SpringSecurity的配置文件中配置对应的用户ROLE.
 		grantAuths.add(new SimpleGrantedAuthority("ROLE_SELLER"));
 		
 		//获取用户.
@@ -46,6 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		if (seller != null) {
 			// 商家必须处于正常状态.才可以登录.
 			if ("1".equals(seller.getStatus())) {
+				// 密码不匹配,此处会返回null.
 				return new User(username, seller.getPassword(), grantAuths);							
 			}else {
 				System.out.println(username + "商家状态不正确...");
