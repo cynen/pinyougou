@@ -137,10 +137,29 @@ app.controller('goodsController' ,function($scope,$controller ,goodsService,logi
 	}
 	
 	// ========商品分类,逐级选择.==================================================
+	// 1级菜单,初始化查询.
 	$scope.selectItemCat1List=function(){
 		itemCatService.findByParentId(0).success(function(response){
 			$scope.itemCat1List = response;
 		});
 	}
+	// 2级菜单,监听1级菜单的model变量.
+	$scope.$watch('entity.tbGoods.category1Id',function(newValue,oldValue){
+		itemCatService.findByParentId(newValue).success(function(response){
+			$scope.itemCat2List = response;
+		});
+	})
+	// 3级菜单,监听1级菜单的model变量.
+	$scope.$watch('entity.tbGoods.category2Id',function(newValue,oldValue){
+		itemCatService.findByParentId(newValue).success(function(response){
+			$scope.itemCat3List = response;
+		});
+	})
+	//	模板id的查询.监听变量entity.tbGoods.category3Id.
+		$scope.$watch('entity.tbGoods.category3Id',function(newValue,oldValue){
+		itemCatService.findOne(newValue).success(function(response){
+			$scope.entity.tbGoods.typeTemplateId = response.typeId;
+		});
+	})
 	
 });	
