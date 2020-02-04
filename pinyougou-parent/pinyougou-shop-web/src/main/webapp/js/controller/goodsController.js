@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller ,goodsService,loginService,uploadService){	
+app.controller('goodsController' ,function($scope,$controller ,goodsService,loginService,uploadService,itemCatService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -110,8 +110,8 @@ app.controller('goodsController' ,function($scope,$controller ,goodsService,logi
 		});	
 	}
 	
-	
-	// 文件上传.
+	// ====================商品图片=====================================
+	// 商品图片文件上传.
 	$scope.uploadFile=function(){
 		uploadService.uploadFile().success(function(response){
 			if(response.success){
@@ -125,14 +125,22 @@ app.controller('goodsController' ,function($scope,$controller ,goodsService,logi
 		});
 	}
 	
-	//图片列表添加图片.
+	//商品图片列表添加图片.
 	// 向列表entity.tbGoodsDesc.itemImages中push元素.
 	$scope.entity = { tbGoods:{},tbGoodsDesc: {itemImages: []}};
 	$scope.image_list_add=function(){
 		$scope.entity.tbGoodsDesc.itemImages.push( $scope.image_entity );
 	}
-	// 从图片列表中删除图片元素.
+	// 从商品图片列表中删除图片元素.
 	$scope.image_list_delete=function(index){
 		$scope.entity.tbGoodsDesc.itemImages.splice( index,1 );
 	}
+	
+	// ========商品分类,逐级选择.==================================================
+	$scope.selectItemCat1List=function(){
+		itemCatService.findByParentId(0).success(function(response){
+			$scope.itemCat1List = response;
+		});
+	}
+	
 });	
