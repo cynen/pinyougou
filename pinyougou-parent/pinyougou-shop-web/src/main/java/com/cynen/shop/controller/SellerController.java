@@ -1,14 +1,12 @@
 package com.cynen.shop.controller;
-import java.util.Date;
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.cynen.pojo.TbSeller;
 import com.cynen.sellersgoods.service.SellerService;
@@ -131,14 +129,18 @@ public class SellerController {
 
 	@RequestMapping("/updatepwd")
 	public Result updatepwd(String oldpwd, String pwd){
+		System.out.println("旧密码:" + oldpwd + ",新密码" + pwd);
 		// 获取当前登录用户id
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("当前准备修改的用户 : "+name);
 		// 获取原密码
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		TbSeller seller = sellerService.findOne(name);
 		String originpwd = seller.getPassword();
-		if (originpwd.equals(encoder.encode(oldpwd))) {
-			// 原密码正确,更新密码
+		// 判断旧密码是否匹配.
+		if(encoder.matches(oldpwd,originpwd)) {
+			// 只有原密码正确,才更新密码
+			System.out.println("旧密码匹配...");
 			seller.setPassword(encoder.encode(pwd));
 			try {
 				sellerService.update(seller);

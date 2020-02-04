@@ -11,10 +11,11 @@ public class FastDFSTest {
 		
 		String filename = ClassLoader.getSystemResource("637.jpg").getFile();
 		System.out.println(filename);
-		// 文件上传.
-		// FastUtils.uploadFile(new File(filename));
-		// 下载文件,输出到指定路径.
-		byte[] bs = FastUtils.downloadFile("group1", "M00/00/00/rBJ4Cl3T902Aes5QAAK3h53ub_A69..jpg");
+		// 1.文件上传.
+		FastUtils.uploadFile(new File(filename));
+		
+		// 2.下载文件,输出到指定路径.
+		byte[] bs = FastUtils.downloadFile("group1", "M00/00/00/rBJ4Cl45auiAEzEgAADoJOUTqlQ36..jpg");
 		// 输出到该文件对象中.
 		File file = new File("D://123.jpg");
 		FileOutputStream fileOutputStream;

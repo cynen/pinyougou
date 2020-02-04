@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.cynen.dto.Goods;
+import com.cynen.mapper.TbGoodsDescMapper;
 import com.cynen.mapper.TbGoodsMapper;
 import com.cynen.pojo.TbGoods;
 import com.cynen.pojo.TbGoodsExample;
@@ -23,6 +25,8 @@ public class GoodsServiceImpl implements GoodsService {
 	@Autowired
 	private TbGoodsMapper goodsMapper;
 	
+	@Autowired
+	private TbGoodsDescMapper goodsDescMapper;
 	/**
 	 * 查询全部
 	 */
@@ -45,8 +49,15 @@ public class GoodsServiceImpl implements GoodsService {
 	 * 增加
 	 */
 	@Override
-	public void add(TbGoods goods) {
-		goodsMapper.insert(goods);		
+	public void add(Goods goods) {
+		// 接受的是一个组合实体类
+		// goods.getTbGoods().setAuditStatus("0");// 设置商品未审核.
+		// 插入商品表
+		goodsMapper.insert(goods.getTbGoods());		
+		
+		// 获取主键.
+		goods.getTbGoodsDesc().setGoodsId(goods.getTbGoods().getId());
+		goodsDescMapper.insert(goods.getTbGoodsDesc());
 	}
 
 	

@@ -122,7 +122,8 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 	$scope.findTypeList=function(){			
 		typeTemplateService.findTypeList().success(
 				function(response){
-					$scope.typeList={data:response};
+					// $scope.typeList={data:response};
+					$scope.typeList.data=response;
 				}			
 		);
 	}

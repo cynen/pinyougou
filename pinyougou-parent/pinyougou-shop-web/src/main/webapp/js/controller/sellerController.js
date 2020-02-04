@@ -98,9 +98,11 @@ app.controller('sellerController' ,function($scope,$controller,sellerService,log
 		}
 		sellerService.updatePwd($scope.entity.oldPwd,$scope.entity.pwd1).success(function(response){
 			if(response.success){
+				alert("修改密码成功!,密码修改为: " + $scope.entity.pwd1 );
 				location.href="index.html";
 			}else{
-				alert("修改密码失败!");
+				// alert("修改密码失败!");
+				alert(response.msg)
 			}
 		});
 	}

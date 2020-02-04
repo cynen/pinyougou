@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.cynen.dto.Goods;
 import com.cynen.pojo.TbGoods;
 import com.cynen.sellersgoods.service.GoodsService;
 
@@ -48,11 +49,11 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody TbGoods goods){
+	public Result add(@RequestBody Goods goods){
 		// 处理一下前台页面数据.
 		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
-		goods.setSellerId(sellerId); // 关联商家.
-		goods.setAuditStatus("1"); // 申请中.
+		goods.getTbGoods().setSellerId(sellerId); // 关联商家.
+		goods.getTbGoods().setAuditStatus("0"); // 未审核.
 		try {
 			goodsService.add(goods);
 			return new Result(true, "增加成功");

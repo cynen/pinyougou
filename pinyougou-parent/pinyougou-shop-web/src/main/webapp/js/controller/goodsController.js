@@ -31,6 +31,25 @@ app.controller('goodsController' ,function($scope,$controller   ,goodsService,lo
 		);				
 	}
 	
+	
+	//新增商品
+	$scope.addGoods=function(){
+		// 获取富文本内容.
+		$scope.entity.tbGoodsDesc.introduction=editor.html();
+		goodsService.add( $scope.entity ).success(
+			function(response){
+				if(response.success){
+					// 新增成功,清空表单.
+					alert("添加成功!");
+					$scope.entity = {}; // 新增成功后,清空entity实体.准备下一次新增.
+					editor.html("");// 清空editor
+				}else{
+					alert("添加失败,"+response.msg);
+				}
+			}		
+		);				
+	}
+	
 	//保存 
 	$scope.save=function(){				
 		var serviceObject;//服务层对象  				

@@ -9,7 +9,7 @@ import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
 
 public class FastUtils {
-	public static String CONF_FILENAME = FastUtils.class.getResource("/fastdfs.conf").getFile();
+	public static String CONF_FILENAME = FastUtils.class.getResource("/fdfs_client.conf").getFile();
 	public static void uploadFile(File file) {
 		try {
 			// 全局初始化
