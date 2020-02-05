@@ -1,5 +1,5 @@
  //控制层 
-app.controller('goodsController' ,function($scope,$controller ,goodsService,loginService,uploadService,itemCatService){	
+app.controller('goodsController' ,function($scope,$controller ,goodsService,loginService,uploadService,itemCatService,typeTemplateService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
 	
@@ -158,8 +158,31 @@ app.controller('goodsController' ,function($scope,$controller ,goodsService,logi
 	//	模板id的查询.监听变量entity.tbGoods.category3Id.
 		$scope.$watch('entity.tbGoods.category3Id',function(newValue,oldValue){
 		itemCatService.findOne(newValue).success(function(response){
+			// 变更模板id
 			$scope.entity.tbGoods.typeTemplateId = response.typeId;
+			/*挪到下面也是可行的.
+			 * // ========品牌选择,和具体的模板有关联关系,通过模板id查询对应的关联的品牌.========================
+			typeTemplateService.findOne(response.typeId).success(function(data){
+				// 品牌列表
+				$scope.itemBrandList = JSON.parse(data.brandIds);
+				// 扩展属性列表.
+				$scope.entity.tbGoodsDesc.customAttributeItems = JSON.parse(data.customAttributeItems);
+				
+			});*/
 		});
+	})
+	
+	// ==========品牌列表和扩展属性 ===============
+	// ========品牌选择,和具体的模板有关联关系,通过模板id查询对应的关联的品牌.========================
+	// 监听模板id
+	$scope.$watch('entity.tbGoods.typeTemplateId',function(newValue,oldValue){
+			typeTemplateService.findOne(newValue).success(function(data){
+				// 获取的是模板数据.
+				// 品牌列表,获取到的是json字符串,需要进行解析成json对象.
+				$scope.itemBrandList = JSON.parse(data.brandIds);
+				// 扩展属性列表.
+				$scope.entity.tbGoodsDesc.customAttributeItems = JSON.parse(data.customAttributeItems);
+			});
 	})
 	
 });	
