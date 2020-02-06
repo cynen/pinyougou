@@ -3,10 +3,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.cynen.mapper.TbSpecificationOptionMapper;
 import com.cynen.mapper.TbTypeTemplateMapper;
+import com.cynen.pojo.TbSpecificationOption;
+import com.cynen.pojo.TbSpecificationOptionExample;
 import com.cynen.pojo.TbTypeTemplate;
 import com.cynen.pojo.TbTypeTemplateExample;
 import com.cynen.pojo.TbTypeTemplateExample.Criteria;
@@ -111,6 +117,29 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
 		@Override
 		public List<Map> selectOptionList() {
 			return typeTemplateMapper.selectOptionList();
+		}
+
+		
+		@Autowired
+		private TbSpecificationOptionMapper specificationOptionMapper;
+		/**
+		 * 根据规格型号的ID,查询对应的具体的规格型号参数.
+		 */
+		@Override
+		public List<Map> findSpecList(Long id) {
+			// 1.查询指定SpecID,获取一条 tb_type_template的记录.
+			TbTypeTemplate typeTemplate = typeTemplateMapper.selectByPrimaryKey(id);
+			// 2.根据模板id,查询对应的SpecIds字段,进行解析,获得所有的SpecId.
+			List<Map> list= JSON.parseArray(typeTemplate.getSpecIds(), Map.class);
+			// 3.遍历规格,获取规格选项列表.
+			for(Map map : list) {
+				TbSpecificationOptionExample example = new TbSpecificationOptionExample();
+				com.cynen.pojo.TbSpecificationOptionExample.Criteria criteria = example.createCriteria();
+				criteria.andSpecIdEqualTo(new Long((Integer)map.get("id")));
+				List<TbSpecificationOption> selectOptins = specificationOptionMapper.selectByExample(example );
+				map.put("options", selectOptins);
+			}
+			return list;
 		}
 	
 }

@@ -33,5 +33,10 @@ app.service('typeTemplateService',function($http){
 	//搜索
 	this.findTypeList=function(){
 		return $http.post('../typeTemplate/findTypeList.do');
-	}    	
+	} 
+	//查询规格型号待选列表
+	this.findSpecList=function(id){
+		return $http.post('../typeTemplate/findSpecList.do?id='+id);
+	} 
+	
 });
