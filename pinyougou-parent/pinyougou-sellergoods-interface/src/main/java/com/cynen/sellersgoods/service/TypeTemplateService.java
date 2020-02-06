@@ -62,4 +62,6 @@ public interface TypeTemplateService {
 	
 	// 查询所有模板列表,select2使用.
 	List<Map> selectOptionList();
+	
+	public List<Map> findSpecList(Long id);
 }

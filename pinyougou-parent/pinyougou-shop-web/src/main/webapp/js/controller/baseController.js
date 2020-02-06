@@ -45,4 +45,15 @@ app.controller('baseController',function($scope){
 		return result;
 	}
 	
+	// 抽取一个公共方法,从集合中查询重复元素.
+	$scope.searchObjectByKey=function(list,key,keyValue){
+		// 从list集合中查询是否存在key元素未keyValue的值,如果存在,就返回当前元素.
+		for(var i=0;i<list.length;i++){
+			if(list[i][key] == keyValue){
+				return list[i];
+			}
+		}
+		return null;
+	}
+	
 })

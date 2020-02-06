@@ -117,5 +117,10 @@ public class TypeTemplateController {
 		return typeTemplateService.selectOptionList();
 	}
 	
+	// 查询规格型号的待选列表.
+	@RequestMapping("/findSpecList")
+	public List<Map> findSpecList(Long id){
+		return typeTemplateService.findSpecList(id);
+	}
 	
 }

@@ -127,7 +127,7 @@ app.controller('goodsController' ,function($scope,$controller ,goodsService,logi
 	
 	//商品图片列表添加图片.
 	// 向列表entity.tbGoodsDesc.itemImages中push元素.
-	$scope.entity = { tbGoods:{},tbGoodsDesc: {itemImages: []}};
+	$scope.entity = { tbGoods:{},tbGoodsDesc: {itemImages: [],specificationItems:[]}};
 	$scope.image_list_add=function(){
 		$scope.entity.tbGoodsDesc.itemImages.push( $scope.image_entity );
 	}
@@ -185,4 +185,65 @@ app.controller('goodsController' ,function($scope,$controller ,goodsService,logi
 			});
 	})
 	
+	
+	// ==========规格型号待选列表.========================
+		// 监听模板id
+	$scope.$watch('entity.tbGoods.typeTemplateId',function(newValue,oldValue){
+		// 根据模板id查询..
+		typeTemplateService.findSpecList(newValue).success(function(response){
+			$scope.specList = response;
+		});
+	})
+	
+	// == 动态生成选择的规格型号表
+	// name是当前选择的规格名称,value是选择的值.
+	$scope.updateSpecAttribute=function($event,name,value){
+		// 查询当前规格名称是否存在于列表中.
+		var object = $scope.searchObjectByKey($scope.entity.tbGoodsDesc.specificationItems,"attributeName",name);
+		if(object !=null){
+			// 规格名称不为空,表示之前已经添加过.
+			//判断是移除还是添加
+			if($event.target.checked){
+				object.attributeValue.push(value);				
+			}else{
+				// 移除
+				object.attributeValue.splice( object.attributeValue.indexOf(value ) ,1);//移除选项
+				// 如果全部取消了,就清空该attributeValue
+				if(object.attributeValue.length == 0){
+					$scope.entity.tbGoodsDesc.specificationItems.splice($scope.entity.tbGoodsDesc.specificationItems.indexOf(object),1)
+				}
+			}
+		}else{
+			// 规格型号为空
+			$scope.entity.tbGoodsDesc.specificationItems.push({"attributeName":name,"attributeValue":[value]});
+		}
+	}
+	
+	//=========== 创建SKU列表.
+	$scope.createItemList=function(){
+		// 初始化
+		$scope.entity.itemList=[{spec:{},price:0,num:99999,status:'0',isDefault:'0' } ];
+		var items = $scope.entity.tbGoodsDesc.specificationItems;
+		// 遍历规格型号列表.添加表列
+		for(var i=0;i<items.length;i++){
+			$scope.entity.itemList = addColumn($scope.entity.itemList,items[i].attributeName,items[i].attributeValue)
+		}
+		
+	}
+	//给列表添加列.
+	// 深克隆实现.
+	addColumn=function(list,columnName,columnValue){
+		var newList = []; //新集合.
+		// 遍历旧集合
+		for(var i=0;i<list.length;i++){
+			var oldRow = list[i];
+			// 遍历需要新增的列
+			for(var j=0;j<columnValue.length;j++){
+				var newRow = JSON.parse(JSON.stringify(oldRow));// 深克隆
+				newRow.spec[columnName]=columnValue[j];
+				newList.push(newRow);
+			}
+		}
+		return newList;
+	}
 });	
