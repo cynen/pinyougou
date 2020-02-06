@@ -81,8 +81,9 @@ app.controller('goodsController' ,function($scope,$controller ,$location,goodsSe
 				if(response.success){
 					// 新增成功,清空表单.
 					alert("保存成功!");
-					$scope.entity = {}; // 新增成功后,清空entity实体.准备下一次新增.
-					editor.html("");// 清空editor
+					// $scope.entity = {}; // 新增成功后,清空entity实体.准备下一次新增.
+					// editor.html("");// 清空editor
+					location.href = "goods.html"; // 保存完就跳转到列表页面.
 				}else{
 					alert("保存失败,"+response.msg);
 				}
