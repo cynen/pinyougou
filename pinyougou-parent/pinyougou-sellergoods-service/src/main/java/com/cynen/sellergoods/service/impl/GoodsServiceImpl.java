@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
@@ -35,6 +37,7 @@ import entity.PageResult;
  *
  */
 @Service
+@Transactional
 public class GoodsServiceImpl implements GoodsService {
 
 	@Autowired
@@ -79,7 +82,6 @@ public class GoodsServiceImpl implements GoodsService {
 		// goods.getTbGoods().setAuditStatus("0");// 设置商品未审核.
 		// 插入商品表
 		goodsMapper.insert(goods.getTbGoods());		
-		
 		// 获取主键.
 		goods.getTbGoodsDesc().setGoodsId(goods.getTbGoods().getId());
 		goodsDescMapper.insert(goods.getTbGoodsDesc());
@@ -100,7 +102,7 @@ public class GoodsServiceImpl implements GoodsService {
 					title += " " + specMap.get(key); 
 				}
 				tbItem.setTitle(title);
-				setItemValue(goods,tbItem,isupdate);
+				setItemValue(goods,tbItem);
 				tbItemMapper.insert(tbItem);
 			}
 		}else {
@@ -112,12 +114,12 @@ public class GoodsServiceImpl implements GoodsService {
 			tbItem.setIsDefault(GlobalDict.ITEM_DEFAULT_TRUE);
 			tbItem.setNum(9999); // 默认库存量.
 			tbItem.setSpec("{}");
-			setItemValue(goods, tbItem,isupdate);
+			setItemValue(goods, tbItem);
 			tbItemMapper.insert(tbItem);
 		}
 	}
 	// 设置通用属性.
-	private void setItemValue(Goods goods,TbItem tbItem,boolean isupdate) {
+	private void setItemValue(Goods goods,TbItem tbItem) {
 		
 		// 2.图像.
 		// tbItem.setImage(image);
@@ -130,9 +132,8 @@ public class GoodsServiceImpl implements GoodsService {
 		tbItem.setCategoryid(goods.getTbGoods().getCategory3Id());
 		//4.是否启用.已绑定.
 		//5.时间
-		if(!isupdate) {
-			tbItem.setCreateTime(new Date());
-		}
+		tbItem.setCreateTime(new Date());
+
 		tbItem.setUpdateTime(new Date());
 		// SPUid
 		tbItem.setGoodsId(goods.getTbGoods().getId());
@@ -203,7 +204,11 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public void delete(Long[] ids) {
 		for(Long id:ids){
-			goodsMapper.deleteByPrimaryKey(id);
+			//仅做逻辑删除.
+			TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+			tbGoods.setIsDelete(GlobalDict.GOODS_DELETE_TRUE);
+			goodsMapper.updateByPrimaryKey(tbGoods);
+			// goodsMapper.deleteByPrimaryKey(id);
 		}		
 	}
 	
@@ -214,7 +219,8 @@ public class GoodsServiceImpl implements GoodsService {
 		
 		TbGoodsExample example=new TbGoodsExample();
 		Criteria criteria = example.createCriteria();
-		
+		// criteria.andIsDeleteNotEqualTo("1"); // 当商品删除标志为 1 时,表示已删除.
+		criteria.andIsDeleteIsNull(); // 初始时为空.
 		if(goods!=null){			
 			if(goods.getSellerId()!=null && goods.getSellerId().length()>0){
 				// criteria.andSellerIdLike("%"+goods.getSellerId()+"%");
@@ -247,5 +253,25 @@ public class GoodsServiceImpl implements GoodsService {
 		Page<TbGoods> page= (Page<TbGoods>)goodsMapper.selectByExample(example);		
 		return new PageResult(page.getTotal(), page.getResult());
 	}
+
+		// 更新商品审核状态.
+		@Override
+		public void updateStatus(Long[] ids, String status) {
+			for(Long id : ids) {
+				TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+				tbGoods.setAuditStatus(status);
+				goodsMapper.updateByPrimaryKey(tbGoods);
+			}
+		}
+
+		// 更新上下架信息.
+		@Override
+		public void updateMarketable(Long[] ids, String status) {
+			for(Long id : ids) {
+				TbGoods tbGoods = goodsMapper.selectByPrimaryKey(id);
+				tbGoods.setIsMarketable(status);
+				goodsMapper.updateByPrimaryKey(tbGoods);
+			}			
+		}
 	
 }

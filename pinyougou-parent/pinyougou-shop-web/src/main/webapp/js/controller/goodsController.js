@@ -91,6 +91,7 @@ app.controller('goodsController' ,function($scope,$controller ,$location,goodsSe
 		);				
 	}
 	
+
 	 
 	//批量删除 
 	$scope.dele=function(){			
@@ -288,4 +289,29 @@ app.controller('goodsController' ,function($scope,$controller ,$location,goodsSe
 		}
 		return newList;
 	}
+	
+	
+	//更新上下架信息
+	$scope.updateMarketable = function(status){
+		var list = $scope.list;
+		var ids = $scope.selectIds;
+		for(var i=0;i<list.length;i++){
+			for(j = 0;j<ids.length;j++){
+				if(list[i].id == ids[j] && list[i].auditStatus != "1"){
+					alert("禁止上架未通过审核的商品!");
+					return ;
+				}
+			}
+		}
+		goodsService.updateMarketable($scope.selectIds,status).success(function(response){
+			if(response.success){
+				alert("上架成功!");
+				$scope.reloadList(); // 重新加载列表
+				$scope.selectIds=[]; // 选项清空
+			}else{
+				alert(response.msg);
+			}
+		});
+	}
+	
 });	

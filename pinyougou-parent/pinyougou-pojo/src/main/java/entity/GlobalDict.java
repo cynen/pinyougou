@@ -27,4 +27,8 @@ public interface GlobalDict {
 	// item是否默认状态.
 	public static final String ITEM_DEFAULT_FALSE = "0"; // item不是默认
 	public static final String ITEM_DEFAULT_TRUE = "1"; // item是默认
+	
+	// 商品是否删除.
+	public static final String GOODS_DELETE_TRUE = "1";
+	public static final String GOODS_DELETE_FALSE = "0";
 }
