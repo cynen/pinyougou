@@ -42,23 +42,7 @@ public class GoodsController {
 		return goodsService.findPage(page, rows);
 	}
 	
-	
-	/**
-	 * 修改
-	 * @param goods
-	 * @return
-	 */
-	@RequestMapping("/update")
-	public Result update(@RequestBody TbGoods goods){
-		try {
-			goodsService.update(goods);
-			return new Result(true, "修改成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Result(false, "修改失败");
-		}
-	}	
-	
+
 	/**
 	 * 获取实体
 	 * @param id
@@ -95,6 +79,18 @@ public class GoodsController {
 	@RequestMapping("/search")
 	public PageResult search(@RequestBody TbGoods goods, int page, int rows  ){
 		return goodsService.findPage(goods, page, rows);		
+	}
+	
+	@RequestMapping("/updateStatus")
+	public Result updateStatus(Long[] ids,String status  ){
+		try {
+			goodsService.updateStatus(ids, status);
+			return new Result(true, "操作成功!");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new Result(false, "操作失败!");
+		}		
 	}
 	
 }

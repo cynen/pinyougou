@@ -54,6 +54,7 @@ public class GoodsController {
 		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
 		goods.getTbGoods().setSellerId(sellerId); // 关联商家.
 		goods.getTbGoods().setAuditStatus("0"); // 未审核.
+		goods.getTbGoods().setIsMarketable("1");// 默认为上架.
 		try {
 			goodsService.add(goods);
 			return new Result(true, "增加成功");
@@ -70,6 +71,9 @@ public class GoodsController {
 	 */
 	@RequestMapping("/update")
 	public Result update(@RequestBody Goods goods){
+		// 判断sellerid是否是本人.
+		// TODO
+		
 		try {
 			goodsService.update(goods);
 			return new Result(true, "修改成功");
@@ -118,6 +122,19 @@ public class GoodsController {
 		String sellerId = SecurityContextHolder.getContext().getAuthentication().getName();
 		goods.setSellerId(sellerId);
 		return goodsService.findPage(goods, page, rows);		
+	}
+	
+	// 更新是否上市信息.
+	@RequestMapping("/updateMarketable")
+	public Result updateMarketable(Long[] ids,String status  ){
+		try {
+			goodsService.updateMarketable(ids, status);
+			return new Result(true, "操作成功!");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new Result(false, "操作失败!");
+		}		
 	}
 	
 }

@@ -60,4 +60,11 @@ public interface GoodsService {
 	 */
 	public PageResult findPage(TbGoods goods, int pageNum,int pageSize);
 	
+	//更新goods的状态.
+	public void updateStatus(Long [] ids,String status);
+	
+	// 更新goods是否上下架.
+	// 商家后台使用
+	public void updateMarketable(Long [] ids,String status);
+	
 }
