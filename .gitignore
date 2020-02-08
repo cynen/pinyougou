@@ -31,3 +31,4 @@
 /pinyougou-parent/pinyougou-content-interface/.*
 /pinyougou-parent/pinyougou-content-service/.*
 /pinyougou-parent/pinyougou-portal-web/.*
+/redis-demo/.*
