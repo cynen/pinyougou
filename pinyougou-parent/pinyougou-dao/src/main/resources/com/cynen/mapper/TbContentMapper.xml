@@ -102,6 +102,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.cynen.pojo.TbContent" >
+   	<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		SELECT LAST_INSERT_ID() AS id
+	</selectKey>
+	
     insert into tb_content (id, category_id, title, 
       url, pic, status, sort_order
       )
