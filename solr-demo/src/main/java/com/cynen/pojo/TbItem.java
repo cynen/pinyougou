@@ -3,10 +3,8 @@ package com.cynen.pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Map;
 
 import org.apache.solr.client.solrj.beans.Field;
-import org.springframework.data.solr.core.mapping.Dynamic;
 
 public class TbItem implements Serializable{
 	
@@ -64,21 +62,7 @@ public class TbItem implements Serializable{
     @Field("item_seller")
     private String seller;
 
-    // 动态域进行配置。
-    @Dynamic
-    @Field("item_spec_*")
-    private Map<String,String> specMap;
-    
-    
-    public Map getSpecMap() {
-		return specMap;
-	}
-
-	public void setSpecMap(Map specMap) {
-		this.specMap = specMap;
-	}
-
-	public Long getId() {
+    public Long getId() {
         return id;
     }
 

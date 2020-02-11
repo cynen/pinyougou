@@ -17,13 +17,6 @@
 
 /pinyougou-parent/pinyougou-shop-web/.*
 
-
-
-
-
-
-
-
 /.recommenders/
 
 /spring-security/.*
@@ -32,3 +25,5 @@
 /pinyougou-parent/pinyougou-content-service/.*
 /pinyougou-parent/pinyougou-portal-web/.*
 /redis-demo/.*
+/solr-demo/.*
+/pinyougou-parent/pinyougou-solr-util/.*
