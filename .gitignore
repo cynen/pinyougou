@@ -27,3 +27,6 @@
 /redis-demo/.*
 /solr-demo/.*
 /pinyougou-parent/pinyougou-solr-util/.*
+/pinyougou-parent/pinyougou-search-interface/.*
+/pinyougou-parent/pinyougou-search-service/.*
+/pinyougou-parent/pinyougou-search-web/.*
