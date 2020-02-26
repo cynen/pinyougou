@@ -11,7 +11,8 @@
 		http://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- solr服务器地址 -->
-	<solr:solr-server id="solrServer" url="http://127.0.0.1:8080/solr" />
+	<!-- 早期版本，此处只需要配置到solr  新版本需要配置到具体的collection名称 -->
+	<solr:solr-server id="solrServer" url="http://47.107.177.108:8983/solr/new_core" />
 
    
 	<!-- solr模板，使用solr模板可对索引库进行CRUD的操作 -->
