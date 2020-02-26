@@ -19,7 +19,6 @@ public class ItemSearchController {
 	
 	@RequestMapping("/search")
 	public Map<String, Object> search(@RequestBody Map searchMap){
-		System.out.println("keywords ： " + searchMap.get("keywords"));
 		return itemSearchService.search(searchMap);
 	}
 	
