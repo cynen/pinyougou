@@ -1,4 +1,6 @@
 package com.cynen.sellergoods.service.impl;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -274,4 +276,17 @@ public class GoodsServiceImpl implements GoodsService {
 			}			
 		}
 	
+		/**
+		 * 根据传递过来的SPU的IDS，查询所有满足条件的item
+		 * @param ids
+		 * @param status
+		 * @return
+		 */
+		public List<TbItem> findItemListByGoodsIdsAndStatus(Long[] ids ,String status) {
+			TbItemExample example = new TbItemExample();
+			com.cynen.pojo.TbItemExample.Criteria criteria = example.createCriteria();
+			criteria.andStatusEqualTo(status);
+			criteria.andGoodsIdIn(Arrays.asList(ids));
+			return tbItemMapper.selectByExample(example );
+		}
 }

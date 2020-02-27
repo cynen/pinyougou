@@ -3,6 +3,7 @@ import java.util.List;
 
 import com.cynen.dto.Goods;
 import com.cynen.pojo.TbGoods;
+import com.cynen.pojo.TbItem;
 
 import entity.PageResult;
 /**
@@ -66,5 +67,8 @@ public interface GoodsService {
 	// 更新goods是否上下架.
 	// 商家后台使用
 	public void updateMarketable(Long [] ids,String status);
+	
+	//  根据传递过来的SPU的IDS，查询所有满足条件的item
+	public List<TbItem> findItemListByGoodsIdsAndStatus(Long[] ids ,String status);
 	
 }

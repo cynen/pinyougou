@@ -107,7 +107,8 @@ app.controller('goodsController' ,function($scope,$location,$controller ,goodsSe
 		);				
 	}
 	
-	$scope.searchEntity={auditStatus:"0"};//定义搜索对象 
+	// $scope.searchEntity={auditStatus:"0"};//定义搜索对象 
+	$scope.searchEntity={};//定义搜索对象 
 	$scope.status=['未审核','已审核','审核未通过','关闭'];//商品状态
 	//搜索
 	$scope.search=function(page,rows){			

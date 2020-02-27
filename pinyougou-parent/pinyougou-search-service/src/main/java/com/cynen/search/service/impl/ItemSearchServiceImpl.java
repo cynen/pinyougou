@@ -188,4 +188,31 @@ public class ItemSearchServiceImpl implements ItemSearchService{
 		return map;
 	}
 
+
+
+
+	
+	
+	@Override
+	public void importList(List list) {
+		// TODO Auto-generated method stub
+		System.out.println("搜索服务的Service，更新索引库--->size： " +list.size());
+		solrTemplate.saveBeans(list);
+		solrTemplate.commit();
+	}
+
+
+	// 根据goodids删除索引库中的数据。
+	@Override
+	public void deleteByGoodsIds(List goodsIdList) {
+		// TODO Auto-generated method stub
+		System.out.println("准备删除索引库中的数据");
+		Query query = new SimpleQuery();
+		Criteria criteria = new Criteria("item_goodsid").in(goodsIdList);
+		query.addCriteria(criteria );
+		solrTemplate.delete(query);
+		solrTemplate.commit();
+		System.out.println("已删除指定的索引库数据。");
+	}
+
 }
