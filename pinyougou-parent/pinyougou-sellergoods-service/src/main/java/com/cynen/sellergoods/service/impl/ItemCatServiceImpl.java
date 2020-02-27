@@ -111,15 +111,15 @@ public class ItemCatServiceImpl implements ItemCatService {
 			Criteria criteria = example.createCriteria();
 			criteria.andParentIdEqualTo(parentId);
 			// 将分类列表一次性全部缓存。
-			System.out.println("开始缓存分类列表数据。。。。");
+			/*System.out.println("开始缓存分类列表数据。。。。");
 			long start = System.currentTimeMillis();
 			List<TbItemCat> list = findAll();
 			for (TbItemCat tbItemCat : list) {
 				redisTemplate.boundHashOps("itemCat").put(tbItemCat.getName(), tbItemCat.getTypeId());
 			}
 			long end = System.currentTimeMillis();
-			System.out.println("更新缓存： 缓存商品分类表。共耗时：" + (end - start) + "毫秒");
-			
+			System.out.println("更新缓存： 缓存商品分类表。共耗时：" + (end - start) + "毫秒");*/
+			System.out.println("暂时取消缓存商品分类，在 ItemCatServiceImpl中。。。。");
 			
 			return itemCatMapper.selectByExample(example);
 		}
