@@ -1,4 +1,5 @@
 package com.cynen.manager.controller;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.cynen.dto.Goods;
 import com.cynen.pojo.TbGoods;
+import com.cynen.pojo.TbItem;
+import com.cynen.search.service.ItemSearchService;
 import com.cynen.sellersgoods.service.GoodsService;
 
 import entity.PageResult;
@@ -22,6 +25,9 @@ public class GoodsController {
 
 	@Reference
 	private GoodsService goodsService;
+	
+	@Reference(timeout=10000)
+	private ItemSearchService itemSearchService;
 	
 	/**
 	 * 返回全部列表
@@ -62,6 +68,8 @@ public class GoodsController {
 	public Result delete(Long [] ids){
 		try {
 			goodsService.delete(ids);
+			System.out.println("准备删除索引库中指定索引的数据。。。。");
+			itemSearchService.deleteByGoodsIds(Arrays.asList(ids));
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,6 +93,21 @@ public class GoodsController {
 	public Result updateStatus(Long[] ids,String status  ){
 		try {
 			goodsService.updateStatus(ids, status);
+			
+			// 如果是审核通过，就需要更新索引库。
+			if ("1".equals(status)) {
+				System.out.println("1-------商品审核通过，准备更新索引库。。。。");
+				// 1.查询列表。
+				List<TbItem> list = goodsService.findItemListByGoodsIdsAndStatus(ids, status);
+				if (list.size() > 0) {
+					// 2. 保存列表
+					System.out.println("2--------准备更新索引库。。。。");
+					itemSearchService.importList(list);
+				}else {
+					System.out.println("没有审核通过的明细SKU！");
+				}
+				
+			}
 			return new Result(true, "操作成功!");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

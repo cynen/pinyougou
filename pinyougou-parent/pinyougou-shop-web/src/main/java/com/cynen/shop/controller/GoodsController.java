@@ -1,4 +1,5 @@
 package com.cynen.shop.controller;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.cynen.dto.Goods;
 import com.cynen.pojo.TbGoods;
+import com.cynen.search.service.ItemSearchService;
 import com.cynen.sellersgoods.service.GoodsService;
 
 import entity.PageResult;
@@ -23,6 +25,10 @@ public class GoodsController {
 
 	@Reference(timeout=40000)
 	private GoodsService goodsService;
+	
+	
+	@Reference(timeout=40000)
+	private ItemSearchService itemSearchService;
 	
 	/**
 	 * 返回全部列表
@@ -102,6 +108,9 @@ public class GoodsController {
 	public Result delete(Long [] ids){
 		try {
 			goodsService.delete(ids);
+			System.out.println("准备删除索引库中指定索引的数据。。。。");
+			itemSearchService.deleteByGoodsIds(Arrays.asList(ids));
+			
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();
