@@ -1,4 +1,4 @@
-app.controller('searchController',function($scope,searchService){
+app.controller('searchController',function($scope,$location,searchService){
 	
 	$scope.searchMap = {'keywords':'','category':'','brand':'','spec':{},'pageNo':1,'pageSize':20};
 	$scope.search = function(){
@@ -55,4 +55,11 @@ app.controller('searchController',function($scope,searchService){
 		}	
 	}
 	
+	
+	
+	// 接受首页转交过来的关键字，并执行插叙。
+	$scope.loadkeywords = function(){
+		$scope.searchMap.keywords = $location.search()['keywords'];
+		$scope.search();
+	}
 });

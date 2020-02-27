@@ -111,6 +111,8 @@ public class ItemCatServiceImpl implements ItemCatService {
 			Criteria criteria = example.createCriteria();
 			criteria.andParentIdEqualTo(parentId);
 			// 将分类列表一次性全部缓存。
+			// TODO 抽取成一个方法，在页面点击缓存的时候，再进行缓存。 
+			// 原因是缓存太消耗性能。
 			/*System.out.println("开始缓存分类列表数据。。。。");
 			long start = System.currentTimeMillis();
 			List<TbItemCat> list = findAll();
