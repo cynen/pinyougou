@@ -1,0 +1,26 @@
+package com.cynen.test;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.cynen.demo.JMSProducer;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="classpath:applicationContext-jms-producer.xml")
+public class ProducerTest {
+	
+	@Autowired
+	private JMSProducer jmsProducer;
+	
+	
+	
+	@Test
+	public void send() {
+		jmsProducer.sendMessage("测试spring集成mq！");
+	}
+	
+	
+}

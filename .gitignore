@@ -30,3 +30,5 @@
 /pinyougou-parent/pinyougou-search-interface/.*
 /pinyougou-parent/pinyougou-search-service/.*
 /pinyougou-parent/pinyougou-search-web/.*
+/spring-activemq-consumer/.*
+/spring-activemq-producer/.*
