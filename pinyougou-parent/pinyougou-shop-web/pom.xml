@@ -97,6 +97,12 @@
 			<artifactId>pinyougou-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- JMS -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+			<version>5.13.4</version>
+		</dependency>
   </dependencies>
   
   

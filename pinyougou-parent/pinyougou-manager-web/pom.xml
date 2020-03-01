@@ -79,13 +79,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-
-		<dependency>
-			<groupId>com.cynen</groupId>
-			<artifactId>pinyougou-sellergoods-interface</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
 		<!-- 身份验证 -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -97,19 +90,36 @@
 		</dependency>
 		<dependency>
 			<groupId>com.cynen</groupId>
-			<artifactId>pinyougou-content-interface</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cynen</groupId>
 			<artifactId>pinyougou-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.cynen</groupId>
-			<artifactId>pinyougou-search-interface</artifactId>
+			<artifactId>pinyougou-content-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.cynen</groupId>
+			<artifactId>pinyougou-sellergoods-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- JMS解耦 
+		<dependency> 
+			<groupId>com.cynen</groupId> 
+			<artifactId>pinyougou-search-interface</artifactId> 
+			<version>0.0.1-SNAPSHOT</version> 
+		</dependency> -->
+
+		<!-- JMS -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-client</artifactId>
+			<version>5.13.4</version>
+		</dependency>
+
 	</dependencies>
 
 
