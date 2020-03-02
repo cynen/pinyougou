@@ -34,3 +34,6 @@
 /spring-activemq-producer/.*
 /springboot-demo/.*
 /pinyougou-sms/.*
+/pinyougou-parent/pinyougou-user-interface/.*
+/pinyougou-parent/pinyougou-user-service/.*
+/pinyougou-parent/pinyougou-user-web/.*
