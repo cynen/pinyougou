@@ -16,3 +16,16 @@ pinyougou :
 
 
 # 使用框架和技术
+
+```
+SpringDataRedis
+SpringDataSolr
+SpringSecurity
+SpringTask
+FastDFS
+JMS
+Dubbox
+CAS
+```
+
+
