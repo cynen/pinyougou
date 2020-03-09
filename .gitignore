@@ -37,3 +37,8 @@
 /pinyougou-parent/pinyougou-user-interface/.*
 /pinyougou-parent/pinyougou-user-service/.*
 /pinyougou-parent/pinyougou-user-web/.*
+
+cas-client/target/*
+cas-client2/target/*
+cas-client/.*
+cas-client2/.*
