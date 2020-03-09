@@ -42,3 +42,4 @@ cas-client/target/*
 cas-client2/target/*
 cas-client/.*
 cas-client2/.*
+/casclient3-springsecurity/.*
