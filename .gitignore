@@ -109,4 +109,10 @@ cas-client/target/*
 cas-client2/target/*
 cas-client/.*
 cas-client2/.*
+asclient3-springsecurity/.*
+
 /casclient3-springsecurity/.*
+/pinyougou-parent/pinyougou-cart-interface/.*
+/pinyougou-parent/pinyougou-cart-service/.*
+/pinyougou-parent/pinyougou-cart-web/.*
+
