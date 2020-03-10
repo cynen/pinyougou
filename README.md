@@ -33,4 +33,7 @@ Dubbox
 CAS
 ```
 
+# 
+dubbo-service 是dubbo提供方.
 
+dubbo-consumer 是dubbo调用方.

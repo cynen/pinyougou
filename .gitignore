@@ -42,7 +42,7 @@ solr-demo/.*
 /pinyougou-parent/pinyougou-manager-web/.*
 /pinyougou-parent/pinyougou-shop-web/.*
 
-## 内容微服务
+/.recommenders/
 /pinyougou-parent/pinyougou-content-interface/.*
 /pinyougou-parent/pinyougou-content-service/.*
 /pinyougou-parent/pinyougou-portal-web/.*
@@ -57,8 +57,6 @@ solr-demo/.*
 /pinyougou-parent/pinyougou-user-interface/.*
 /pinyougou-parent/pinyougou-user-service/.*
 /pinyougou-parent/pinyougou-user-web/.*
-
-
 # 忽略target文件
 casclient3-springsecurity/target/*
 dubbo-consumer/target/*
@@ -66,7 +64,6 @@ fastdfs-demo/target/*
 pinyougou-parent/pinyougou-common/target/*
 pinyougou-parent/pinyougou-content-interface/target/*
 pinyougou-parent/pinyougou-content-service/target/*
-
 pinyougou-parent/pinyougou-dao/target/*
 pinyougou-parent/pinyougou-manager-web/target/*
 pinyougou-parent/pinyougou-pojo/target/*
@@ -84,9 +81,32 @@ pinyougou-parent/pinyougou-user-web/target/*
 pinyougou-sms/target/*
 spring-activemq-consumer/target/*
 spring-activemq-producer/target/*
-
 springboot-demo/target/*
 spring-security/target/*
 solr-demo/target/*
-
 redis-demo/.classpath
+
+/spring-security/.*
+/fastdfs-demo/.*
+/pinyougou-parent/pinyougou-content-interface/.*
+/pinyougou-parent/pinyougou-content-service/.*
+/pinyougou-parent/pinyougou-portal-web/.*
+/redis-demo/.*
+/solr-demo/.*
+/pinyougou-parent/pinyougou-solr-util/.*
+/pinyougou-parent/pinyougou-search-interface/.*
+/pinyougou-parent/pinyougou-search-service/.*
+/pinyougou-parent/pinyougou-search-web/.*
+/spring-activemq-consumer/.*
+/spring-activemq-producer/.*
+/springboot-demo/.*
+/pinyougou-sms/.*
+/pinyougou-parent/pinyougou-user-interface/.*
+/pinyougou-parent/pinyougou-user-service/.*
+/pinyougou-parent/pinyougou-user-web/.*
+
+cas-client/target/*
+cas-client2/target/*
+cas-client/.*
+cas-client2/.*
+/casclient3-springsecurity/.*
