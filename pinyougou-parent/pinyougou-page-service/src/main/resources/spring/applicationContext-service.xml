@@ -19,7 +19,7 @@
 		address="zookeeper://47.107.177.108:2181" />
 	<dubbo:annotation
 		package="com.cynen.page.service.impl" />
-
+	<!-- freemarker的配置类。 -->
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
 		<property name="templateLoaderPath" value="/WEB-INF/ftl/" />

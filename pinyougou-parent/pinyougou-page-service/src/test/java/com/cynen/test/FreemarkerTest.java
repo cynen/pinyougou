@@ -11,7 +11,7 @@ import com.cynen.page.service.impl.ItemPageServiceImpl;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:applicationContext-service.xml")
+@ContextConfiguration(locations="classpath:spring/applicationContext-service.xml")
 public class FreemarkerTest {
 	
 	@Autowired
