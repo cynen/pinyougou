@@ -9,19 +9,23 @@
 /dubbo-service/.*
 /dubbo-consumer/.*
 ## CAS 
+
 cas-client/target/*
 cas-client2/target/*
 cas-client/.*
 cas-client2/.*
 /casclient3-springsecurity/.*
 ## SpringSecurity
+
 /spring-security/.*
 ## MQ
+
 /spring-activemq-consumer/.*
 /spring-activemq-producer/.*
 ## 其他
-/redis-demo/.*
-/solr-demo/.*
+
+redis-demo/.*
+solr-demo/.*
 /springboot-demo/.*
 /fastdfs-demo/.*
 
@@ -54,3 +58,35 @@ cas-client2/.*
 /pinyougou-parent/pinyougou-user-service/.*
 /pinyougou-parent/pinyougou-user-web/.*
 
+
+# 忽略target文件
+casclient3-springsecurity/target/*
+dubbo-consumer/target/*
+fastdfs-demo/target/*
+pinyougou-parent/pinyougou-common/target/*
+pinyougou-parent/pinyougou-content-interface/target/*
+pinyougou-parent/pinyougou-content-service/target/*
+
+pinyougou-parent/pinyougou-dao/target/*
+pinyougou-parent/pinyougou-manager-web/target/*
+pinyougou-parent/pinyougou-pojo/target/*
+pinyougou-parent/pinyougou-portal-web/target/*
+pinyougou-parent/pinyougou-search-interface/target/*
+pinyougou-parent/pinyougou-search-service/target/*
+pinyougou-parent/pinyougou-search-web/target/*
+pinyougou-parent/pinyougou-sellergoods-interface/target/*
+pinyougou-parent/pinyougou-sellergoods-service/target/*
+pinyougou-parent/pinyougou-shop-web/target/*
+pinyougou-parent/pinyougou-solr-util/target/*
+pinyougou-parent/pinyougou-user-interface/target/*
+pinyougou-parent/pinyougou-user-service/target/*
+pinyougou-parent/pinyougou-user-web/target/*
+pinyougou-sms/target/*
+spring-activemq-consumer/target/*
+spring-activemq-producer/target/*
+
+springboot-demo/target/*
+spring-security/target/*
+solr-demo/target/*
+
+redis-demo/.classpath
