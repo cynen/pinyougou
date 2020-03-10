@@ -58,7 +58,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
-			<version>3.4.12</version>
+			<version>3.4.14</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.sgroschupf</groupId>
