@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.cynen.dto.Goods;
+import com.cynen.page.service.ItemPageService;
 import com.cynen.pojo.TbGoods;
 import com.cynen.pojo.TbItem;
 import com.cynen.sellersgoods.service.GoodsService;
@@ -146,6 +147,14 @@ public class GoodsController {
 			e.printStackTrace();
 			return new Result(false, "操作失败!");
 		}		
+	}
+	
+	@Reference(timeout=40000)
+	private ItemPageService itemPageService;
+	
+	@RequestMapping("/genHtml")
+	public void gen(Long goodsId) {
+		itemPageService.genItemHtml(goodsId);
 	}
 	
 }

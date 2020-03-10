@@ -7,10 +7,11 @@
 		<artifactId>pinyougou-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>pinyougou-manager-web</artifactId>
+	<artifactId>pinyougou-page-service</artifactId>
 	<packaging>war</packaging>
 
 	<dependencies>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -79,45 +80,15 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- 身份验证 -->
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.cynen</groupId>
-			<artifactId>pinyougou-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>com.cynen</groupId>
-			<artifactId>pinyougou-content-interface</artifactId>
+			<artifactId>pinyougou-dao</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.cynen</groupId>
-			<artifactId>pinyougou-sellergoods-interface</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<!-- JMS解耦 
-		<dependency> 
-			<groupId>com.cynen</groupId> 
-			<artifactId>pinyougou-search-interface</artifactId> 
-			<version>0.0.1-SNAPSHOT</version> 
-		</dependency> -->
-
-		<!-- JMS -->
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-client</artifactId>
-			<version>5.13.4</version>
 		</dependency>
 
 		<dependency>
@@ -127,7 +98,6 @@
 		</dependency>
 	</dependencies>
 
-
 	<build>
 		<plugins>
 			<plugin>
@@ -136,7 +106,7 @@
 				<version>2.2</version>
 				<configuration>
 					<!-- 指定端口 -->
-					<port>9101</port>
+					<port>9005</port>
 					<!-- 请求路径 -->
 					<path>/</path>
 				</configuration>

@@ -116,3 +116,5 @@ asclient3-springsecurity/.*
 /pinyougou-parent/pinyougou-cart-service/.*
 /pinyougou-parent/pinyougou-cart-web/.*
 
+/pinyougou-parent/pinyougou-page-interface/.*
+/pinyougou-parent/pinyougou-page-service/.*
