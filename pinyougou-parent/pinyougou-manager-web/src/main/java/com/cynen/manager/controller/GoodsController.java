@@ -132,10 +132,11 @@ public class GoodsController {
 					jmsTemplate.send(queueSolrDestination, new MessageCreator() {
 						@Override
 						public Message createMessage(Session session) throws JMSException {
-							System.out.println("发送itemlist到 QUEUE ： queueSolrDestination 中");
+							System.out.println("发送itemlist到 QUEUE ： queueSolrDestination 中,数据位: "+itemlist );
 							return session.createTextMessage(itemlist);
 						}
 					});
+					
 					// 3.调用页面生成服务,生成静态页面.
 					for (Long id:ids) {
 						itemPageService.genItemHtml(id);

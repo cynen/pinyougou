@@ -21,7 +21,18 @@ WAR注意区分SpringBoot中的jar打包方式。
 
 
 
+# Notice:
 
+pages 文件夹是静态页面生成后需要引用的文件集合.
+
+目录结构:
+pages
+|--css
+|--fonts
+|--img
+|--js
+|--plugins
+|--生成的其他页面(html)
 
 
 
