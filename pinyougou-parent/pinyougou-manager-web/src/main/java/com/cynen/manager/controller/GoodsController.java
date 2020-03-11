@@ -136,6 +136,11 @@ public class GoodsController {
 							return session.createTextMessage(itemlist);
 						}
 					});
+					// 3.调用页面生成服务,生成静态页面.
+					for (Long id:ids) {
+						itemPageService.genItemHtml(id);
+					}
+					
 				}else {
 					System.out.println("没有审核通过的明细SKU！");
 				}
@@ -152,6 +157,10 @@ public class GoodsController {
 	@Reference(timeout=40000)
 	private ItemPageService itemPageService;
 	
+	/**
+	 * 留作备用调试接口.
+	 * @param goodsId
+	 */
 	@RequestMapping("/genHtml")
 	public void gen(Long goodsId) {
 		itemPageService.genItemHtml(goodsId);
