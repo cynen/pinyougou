@@ -41,4 +41,8 @@
 	    <constructor-arg value="pinyougou_topic_page_gen"/>  
 	</bean>
 	
+	<bean id="topicPageDeleteDestination" class="org.apache.activemq.command.ActiveMQTopic">  
+	    <constructor-arg value="pinyougou_topic_page_delete"/>  
+	</bean>
+	
 </beans>

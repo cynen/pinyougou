@@ -1,5 +1,6 @@
 package com.cynen.page.service.impl;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.HashMap;
@@ -95,4 +96,22 @@ public class ItemPageServiceImpl implements ItemPageService{
 		}
 	}
 
+	/**
+	 * 删除物理磁盘上的静态页面.
+	 * @param ids
+	 * @return
+	 */
+	@Override
+	public boolean deletePage(Long[] ids) {
+		try {
+			for (Long id : ids) {
+				new File(pagedir+id+".html").delete();
+			}
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

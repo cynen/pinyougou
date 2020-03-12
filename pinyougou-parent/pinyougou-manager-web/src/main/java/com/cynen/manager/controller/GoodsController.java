@@ -53,6 +53,10 @@ public class GoodsController {
 	@Qualifier("topicPageDestination")
 	private Destination topicPageDestination;
 	
+	@Autowired
+	@Qualifier("topicPageDeleteDestination")
+	private Destination topicPageDeleteDestination;
+	
 	/**
 	 * 返回全部列表
 	 * @return
@@ -89,9 +93,12 @@ public class GoodsController {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public Result delete(final Long [] ids){
+	public Result delete(final Long[] ids){
 		try {
+			// 删除表中的数据
 			goodsService.delete(ids);
+			
+			// 1.删除索引页中的指定商品
 			// System.out.println("准备删除索引库中指定索引的数据。。。。");
 			// itemSearchService.deleteByGoodsIds(Arrays.asList(ids));
 			jmsTemplate.send(queueSolrDeleteDestination, new MessageCreator() {
@@ -100,6 +107,14 @@ public class GoodsController {
 					return session.createObjectMessage(ids);
 				}
 			});
+			// 2. 删除详情页
+			jmsTemplate.send(topicPageDeleteDestination, new MessageCreator() {
+				@Override
+				public Message createMessage(Session session) throws JMSException {
+					return session.createObjectMessage(ids);
+				}
+			});
+			
 			return new Result(true, "删除成功"); 
 		} catch (Exception e) {
 			e.printStackTrace();

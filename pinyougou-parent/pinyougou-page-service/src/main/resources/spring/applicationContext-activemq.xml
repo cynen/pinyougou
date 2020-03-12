@@ -38,4 +38,14 @@
 		<property name="messageListener" ref="pageListener" />
 	</bean>
 	
+	<bean id="topicPageDeleteDestination" class="org.apache.activemq.command.ActiveMQTopic">  
+	    <constructor-arg value="pinyougou_topic_page_delete"/>  
+	</bean>
+	<!-- 消息监听容器 -->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="topicPageDeleteDestination" />
+		<property name="messageListener" ref="pageDeleteListener" />
+	</bean>
+	
 </beans>
