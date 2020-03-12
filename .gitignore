@@ -103,3 +103,4 @@ pinyougou-parent/pinyougou-user-web/target/*
 ## 商品详情页
 /pinyougou-parent/pinyougou-page-interface/.*
 /pinyougou-parent/pinyougou-page-service/.*
+pinyougou-parent/pinyougou-page-web/.*

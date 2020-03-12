@@ -139,6 +139,7 @@ public class GoodsController {
 					
 					// 3.调用页面生成服务,生成静态页面.
 					for (Long id:ids) {
+						System.out.println("生成商品详情页..." + id);
 						itemPageService.genItemHtml(id);
 					}
 					
