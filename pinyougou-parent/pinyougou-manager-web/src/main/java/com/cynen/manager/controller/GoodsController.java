@@ -1,5 +1,4 @@
 package com.cynen.manager.controller;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.jms.Destination;
@@ -8,6 +7,7 @@ import javax.jms.Message;
 import javax.jms.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.cynen.dto.Goods;
-import com.cynen.page.service.ItemPageService;
 import com.cynen.pojo.TbGoods;
 import com.cynen.pojo.TbItem;
 import com.cynen.sellersgoods.service.GoodsService;
@@ -43,10 +42,16 @@ public class GoodsController {
 	private JmsTemplate jmsTemplate;
 	
 	@Autowired
+	@Qualifier("queueSolrDestination")
 	private Destination queueSolrDestination;
 	
 	@Autowired
+	@Qualifier("queueSolrDeleteDestination")
 	private Destination queueSolrDeleteDestination;
+	
+	@Autowired
+	@Qualifier("topicPageDestination")
+	private Destination topicPageDestination;
 	
 	/**
 	 * 返回全部列表
@@ -138,9 +143,18 @@ public class GoodsController {
 					});
 					
 					// 3.调用页面生成服务,生成静态页面.
-					for (Long id:ids) {
+					for (final Long id:ids) {
 						System.out.println("生成商品详情页..." + id);
-						itemPageService.genItemHtml(id);
+						// itemPageService.genItemHtml(id);
+						jmsTemplate.send(topicPageDestination, new MessageCreator() {
+							
+							@Override
+							public Message createMessage(Session session) throws JMSException {
+								// 将需要生成页面的goodsid发送到mq
+								return session.createTextMessage(id+"");
+							}
+						});
+						
 					}
 					
 				}else {
@@ -156,16 +170,25 @@ public class GoodsController {
 		}		
 	}
 	
-	@Reference(timeout=40000)
-	private ItemPageService itemPageService;
+	// @Reference(timeout=40000)
+	// private ItemPageService itemPageService;
 	
 	/**
 	 * 留作备用调试接口.
 	 * @param goodsId
 	 */
 	@RequestMapping("/genHtml")
-	public void gen(Long goodsId) {
-		itemPageService.genItemHtml(goodsId);
+	public void gen(final Long goodsId) {
+		// itemPageService.genItemHtml(goodsId);
+		// MQ测试.
+		jmsTemplate.send(topicPageDestination, new MessageCreator() {
+			@Override
+			public Message createMessage(Session session) throws JMSException {
+				// 将需要生成页面的goodsid发送到mq
+				return session.createTextMessage(goodsId+"");
+			}
+		});
+		
 	}
 	
 }

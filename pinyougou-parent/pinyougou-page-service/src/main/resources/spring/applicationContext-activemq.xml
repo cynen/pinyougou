@@ -6,7 +6,7 @@
 		http://www.springframework.org/schema/context   
 		http://www.springframework.org/schema/context/spring-context.xsd">
 		
-	<!-- <context:component-scan base-package="com.cynen.demo"></context:component-scan> -->     
+	<context:component-scan base-package="com.cynen.page"></context:component-scan>    
 	
 	   
     <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供-->  
@@ -26,19 +26,16 @@
 	    <property name="connectionFactory" ref="connectionFactory"/>  
 	</bean>      
 	
-	
-    <!--这个是队列目的地，点对点的  文本信息 审核通过，新增的queue-->  
-	<bean id="queueSolrDestination" class="org.apache.activemq.command.ActiveMQQueue">  
-	    <constructor-arg value="pinyougou_queue_solr_add"/>  
-	</bean>    
-	<!-- 删除的queue -->
-	<bean id="queueSolrDeleteDestination" class="org.apache.activemq.command.ActiveMQQueue">  
-	    <constructor-arg value="pinyougou_queue_solr_delete"/>  
-	</bean>   
-	
-	<!--这个是订阅模式  -->  
+
+	<!--这个是订阅模式  文本信息-->  
 	<bean id="topicPageDestination" class="org.apache.activemq.command.ActiveMQTopic">  
 	    <constructor-arg value="pinyougou_topic_page_gen"/>  
+	</bean>
+		<!-- 消息监听容器 -->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="topicPageDestination" />
+		<property name="messageListener" ref="pageListener" />
 	</bean>
 	
 </beans>

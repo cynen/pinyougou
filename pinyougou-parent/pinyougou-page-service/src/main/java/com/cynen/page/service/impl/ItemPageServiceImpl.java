@@ -8,10 +8,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.cynen.mapper.TbGoodsDescMapper;
 import com.cynen.mapper.TbGoodsMapper;
 import com.cynen.mapper.TbItemCatMapper;
@@ -27,7 +26,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 @Service
-@Transactional
 public class ItemPageServiceImpl implements ItemPageService{
 
 	@Autowired

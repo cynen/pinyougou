@@ -12,13 +12,15 @@
 
 	<context:property-placeholder
 		location="classpath*:properties/*.properties" />
+		
 	<!-- 每个服务需要指定一个不同的端口,同于提供服务,给调用者调用. -->
-	<dubbo:protocol name="dubbo" port="2290"></dubbo:protocol>
+	<!-- 	<dubbo:protocol name="dubbo" port="2290"></dubbo:protocol>
 	<dubbo:application name="pinyougou-page-service" />
 	<dubbo:registry
 		address="zookeeper://47.107.177.108:2181" />
 	<dubbo:annotation
-		package="com.cynen.page.service.impl" />
+		package="com.cynen.page.service.impl" /> -->
+		
 	<!-- freemarker的配置类。 -->
 	<bean id="freemarkerConfig"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">

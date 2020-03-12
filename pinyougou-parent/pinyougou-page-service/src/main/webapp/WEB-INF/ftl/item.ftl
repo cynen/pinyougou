@@ -60,8 +60,7 @@
 					<li>
 						<a href="#">${itemCat3}</a>
 					</li>
-					<li class="active">iphone 6S系类</li>
-					{{specificationItems}}
+					<li class="active">{{sku.title}}</li>
 				</ul>
 			</div>
 			<!--product-info-->
