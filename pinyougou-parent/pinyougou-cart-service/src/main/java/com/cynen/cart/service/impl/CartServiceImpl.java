@@ -150,6 +150,24 @@ public class CartServiceImpl implements CartService{
 		// System.out.println("向Redis中添加购物车.");
 		redisTemplate.boundHashOps("cartList").put(username, cartList);
 	}
+
+	/**
+	 * 合并购物车
+	 */
+	@Override
+	public List<Cart> mergeCartList(List<Cart> cookie_cartList, List<Cart> redis_cartList) {
+		System.out.println("合并购物车...");
+		// 需要做判空.
+		if (redis_cartList.size() > 0) {
+			for (Cart cart : redis_cartList) {
+				for (TbOrderItem item:cart.getOrderItemList()) {
+					cookie_cartList = addGoodsToCartList(cookie_cartList, item.getItemId(), item.getNum());
+				}
+			}
+		}
+		return cookie_cartList;
+		
+	}
 	
 
 }

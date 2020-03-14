@@ -26,7 +26,7 @@
 			<div class="shortcut">
 				<ul class="fl">
 					<li class="f-item">品优购欢迎您！</li>
-					<li class="f-item">请登录　<span><a href="#">免费注册</a></span></li>
+					<li class="f-item">请<a href="login.html">登录</a>　<span><a href="#">免费注册</a></span></li>
 				</ul>
 				<ul class="fr">
 					<li class="f-item">我的订单</li>
@@ -74,7 +74,7 @@
 				<div class="cart-item-list" ng-repeat="cart in cartList">
 					<div class="cart-shop">
 						<input type="checkbox" name="" id="" value="" />
-						<span class="shopname self">{{cart.sellerName}}</span>
+						<span class="shopname self">{{cart.sellerName}} 【商家ID: {{cart.sellerId}}】</span>
 					</div>
 					<div class="cart-body">
 						<div class="cart-list" ng-repeat="orderItem in cart.orderItemList">

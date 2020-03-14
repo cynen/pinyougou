@@ -42,22 +42,33 @@ public class CartController {
 		// 获取登录人信息
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println("当前登录人:" + name);
+		
+		// 从cookie中查询.是否执行合并另说.
+		String cartListString = CookieUtil.getCookieValue(request, "cartList", "UTF-8");
+		// 空指针判断.
+		if (cartListString==null || "".equals(cartListString)) {
+			cartListString = "[]";
+		}
+		List<Cart> cartList_cookie = JSON.parseArray(cartListString, Cart.class);
+		
 		// 判断是否登录,没有登录的用户,用户名固定: anonymousUser 
 		// 这个是SpringSecurity提供的.
 		if("anonymousUser".equals(name)) {
 			// 如果没有登录,就从cookie中取值.
-			// 从cookie中查询.
-			String cartListString = CookieUtil.getCookieValue(request, "cartList", "UTF-8");
-			// 空指针判断.
-			if (cartListString==null || "".equals(cartListString)) {
-				cartListString = "[]";
-			}
-			List<Cart> cartList = JSON.parseArray(cartListString, Cart.class);
-			return cartList;	
+			return cartList_cookie;	
 		}else {
 			// 如果登录了,就从redis中取值.
-			List<Cart> list = cartService.findCartListFromRedis(name);
-			return list;
+			List<Cart> cartList_redis = cartService.findCartListFromRedis(name);
+			// 判断本地购物车是否为空
+			if (cartList_cookie.size() > 0) {
+				// 1.合并购物车
+				cartList_redis = cartService.mergeCartList(cartList_cookie, cartList_redis);
+				// 2.清空本地购物车.
+				CookieUtil.deleteCookie(request, response, "cartList");
+				// 3.将合并后的购物车存入Redis
+				cartService.saveCartListToRedis(name, cartList_redis);
+			}
+			return cartList_redis;
 		}
 	}
 	
