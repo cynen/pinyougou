@@ -27,12 +27,12 @@
   	<!-- CAS入口点 开始 -->
     <beans:bean id="casProcessingFilterEntryPoint" class="org.springframework.security.cas.web.CasAuthenticationEntryPoint">  
         <!-- 单点登录服务器登录URL -->  
-        <beans:property name="loginUrl" value="http://${CAS_SERVER}/cas/login"/>  
+        <beans:property name="loginUrl" value="http://localhost:9100/cas/login"/>  
         <beans:property name="serviceProperties" ref="serviceProperties"/>  
     </beans:bean>      
     <beans:bean id="serviceProperties" class="org.springframework.security.cas.ServiceProperties">  
         <!--service 配置自身工程的根地址+/login/cas   -->  
-        <beans:property name="service" value="http://${LOCAL_SERVER}/login/cas"/>
+        <beans:property name="service" value="http://localhost:9107/login/cas"/>
     </beans:bean>  
     <!-- CAS入口点 结束 -->
 
@@ -57,7 +57,7 @@
         <!-- ticketValidator 为票据验证器 -->
         <beans:property name="ticketValidator">  
             <beans:bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator">  
-                <beans:constructor-arg index="0" value="http://${CAS_SERVER}/cas"/>  
+                <beans:constructor-arg index="0" value="http://localhost:9100/cas"/>  
             </beans:bean>  
         </beans:property>  
         <beans:property name="key" value="an_id_for_this_auth_provider_only"/> 
@@ -72,7 +72,7 @@
     <beans:bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter"/>   
     <!-- 实际的意义就是通过地址栏的 /logout/cas 地址后，执行此过滤器，实现登出。 -->       
     <beans:bean id="requestSingleLogoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">  
-        <beans:constructor-arg value="http://${CAS_SERVER}/cas/logout?service=http://${PORTAL_SERVER}"/>  
+        <beans:constructor-arg value="http://localhost:9100/cas/logout?service=http://localhost:9103"/>  
         <beans:constructor-arg>  
             <beans:bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>  
         </beans:constructor-arg>  
