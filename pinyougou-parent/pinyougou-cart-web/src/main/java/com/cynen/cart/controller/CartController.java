@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -79,7 +80,14 @@ public class CartController {
 	 * @return
 	 */
 	@RequestMapping("/addGoodsToCart")
+	@CrossOrigin(origins="http://localhost:9105",allowCredentials="true")
 	public Result addGoodsToCart(Long itemId,int num ) {
+		// CROS跨域解决,以注解方式替代.[4.2之后的版本才支持]
+		// response.setHeader("Access-Control-Allow-Origin", "http://localhost:9105");
+		// 使用cookie信息就需要添加此响应头.
+		// 并且对应的CROS域不可以设置成 * 必须配置指定域.
+		// response.setHeader("Access-Control-Allow-Credentials", "true");
+		
 		// 获取登录人信息
 		String name = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println("当前登录人:" + name);

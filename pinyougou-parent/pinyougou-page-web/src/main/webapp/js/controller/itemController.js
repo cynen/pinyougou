@@ -61,7 +61,7 @@ app.controller('itemController' ,function($scope,$http){
 	$scope.addToCart=function(){
 		// alert('skuid:'+$scope.sku.id);	
 		// 跨域请求
-		$http.get("http://localhost:9107/cart/addGoodsToCart.do?itemId="+$scope.sku.id+"&num="+$scope.num).success(function(response){
+		$http.get("http://localhost:9107/cart/addGoodsToCart.do?itemId="+$scope.sku.id+"&num="+$scope.num,{'withCredentials':true}).success(function(response){
 			if(response.success){
 				// 添加购物车成功就跳转页面.
 				location.href="http://localhost:9107/cart.html"
