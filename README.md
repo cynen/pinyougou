@@ -37,3 +37,21 @@ CAS
 dubbo-service 是dubbo提供方.
 
 dubbo-consumer 是dubbo调用方.
+
+
+
+# CAS 服务器的配置
+
+1.下载当前项目中的 cas文件夹.
+
+2.将下载好的cas文件夹全部拷贝到 Tomcat(建议tomcat7以上)的 `webapps` 目录下
+
+3.修改Tomcat的服务器端口.  conf/server.xml 键默认的8080修改成9100 (自定义)
+
+4.修改cas中 `WEB-INF/cas.properties` 配置文件,修改server.name 的端口 (和tomcat一致)
+
+5.修改 `WEB-INF/deployerConfigContext.xml` 文件中的最后配置的数据库.
+
+6.启动tomcat
+
+7.访问 localhost:9100/cas/login 即可看到登录界面.
