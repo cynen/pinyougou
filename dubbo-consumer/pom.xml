@@ -8,7 +8,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   <packaging>war</packaging>
   
   <properties>		
-		<spring.version>4.2.4.RELEASE</spring.version>
+		<spring.version>5.3.18</spring.version>
    </properties>
     
 	<dependencies>
